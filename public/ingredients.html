@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingredients - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+  <style>
+    .ingredient-card {
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background-color: #fff;
+    }
+    
+    .ingredient-type {
+      display: inline-block;
+      padding: 3px 8px;
+      margin-right: 5px;
+      border-radius: 4px;
+      font-size: 12px;
+      color: white;
+    }
+    
+    .type-dry {
+      background-color: #6c757d;
+    }
+    
+    .type-wet {
+      background-color: #17a2b8;
+    }
+    
+    .type-non-food {
+      background-color: #6c757d;
+    }
+    
+    .nutrition-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    
+    .nutrition-table th, .nutrition-table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #dee2e6;
+    }
+    
+    .filter-controls {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .search-box {
+      flex-grow: 1;
+      padding: 8px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+    }
+    
+    .csv-upload {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      border: 1px solid #e9ecef;
+    }
+    
+    .upload-result {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 4px;
+    }
+    
+    .upload-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    
+    .upload-error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/ingredients.html">Ingredients</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>Ingredients Management</h2>
+      <div id="ingredient-controls">
+        <button id="add-ingredient-btn" class="btn" style="display: none;">Add New Ingredient</button>
+      </div>
+    </div>
+    
+    <!-- CSV Upload Section -->
+    <div class="csv-upload">
+      <h3>Import Ingredients from CSV</h3>
+      <p>Upload your ingredients CSV file to import all data at once.</p>
+      <div style="display: flex; gap: 10px; align-items: center;">
+        <input type="file" id="csv-file-input" accept=".csv" style="flex-grow: 1;">
+        <button id="upload-csv-btn" class="btn">Upload</button>
+      </div>
+      <div id="upload-result" class="upload-result" style="display: none;"></div>
+    </div>
+    
+    <div class="filter-controls">
+      <input type="text" id="search-box" class="search-box" placeholder="Search ingredients...">
+      <button id="filter-all-btn" class="btn">All</button>
+      <button id="filter-dry-btn" class="btn">Dry</button>
+      <button id="filter-wet-btn" class="btn">Wet</button>
+      <button id="filter-non-food-btn" class="btn">Non-Food</button>
+    </div>
+    
+    <div id="ingredients-container">
+      <!-- Ingredients will be loaded here dynamically -->
+    </div>
+  </div>
+
+  <!-- Add/Edit Ingredient Modal -->
+  <div id="ingredient-form-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; overflow-y: auto;">
+    <div style="background-color: white; margin: 5% auto; padding: 20px; width: 80%; max-width: 700px; border-radius: 8px;">
+      <h2 id="ingredient-form-title">Add New Ingredient</h2>
+      <form id="ingredient-form">
+        <input type="hidden" id="ingredient-id">
+        
+        <div class="form-group">
+          <label for="ingredient-name">Ingredient Name</label>
+          <input type="text" id="ingredient-name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-type">Type</label>
+          <select id="ingredient-type" required>
+            <option value="">Select a type</option>
+            <option value="dry">Dry</option>
+            <option value="wet">Wet</option>
+            <option value="non-food">Non-Food</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-package-size">Package Size</label>
+          <input type="number" id="ingredient-package-size" required min="1">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-unit">Unit</label>
+          <input type="text" id="ingredient-unit" required placeholder="gram, Pcs, etc.">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-price-per-package">Price Per Package</label>
+          <input type="number" id="ingredient-price-per-package" required min="0" step="0.01">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-calories">Calories per 100g</label>
+          <input type="number" id="ingredient-calories" min="0" step="0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-protein">Protein per 100g</label>
+          <input type="number" id="ingredient-protein" min="0" step="0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-carbs">Carbs per 100g</label>
+          <input type="number" id="ingredient-carbs" min="0" step="0.1">
+        </div>
+        
+        <div class="form-group">
+          <label for="ingredient-fat">Fat per 100g</label>
+          <input type="number" id="ingredient-fat" min="0" step="0.1">
+        </div>
+        
+        <button type="submit" class="btn">Save Ingredient</button>
+        <button type="button" id="cancel-ingredient-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Show add ingredient button based on permissions
+    if (AuthService.hasPermission('manage_recipes')) {
+      document.getElementById('add-ingredient-btn').style.display = 'inline-block';
+    }
+    
+    // Ingredients Data Service
+    const IngredientsDataService = {
+      // Ingredients storage
+      ingredients: JSON.parse(localStorage.getItem('sourdough_ingredients') || '[]'),
+      
+      // Save ingredients to local storage
+      saveIngredients() {
+        localStorage.setItem('sourdough_ingredients', JSON.stringify(this.ingredients));
+      },
+      
+      // Get all ingredients
+      getAllIngredients() {
+        return this.ingredients;
+      },
+      
+      // Get ingredient by ID
+      getIngredientById(id) {
+        return this.ingredients.find(ingredient => ingredient.id === id);
+      },
+      
+      // Get ingredients by type
+      getIngredientsByType(type) {
+        return this.ingredients.filter(ingredient => ingredient.type === type);
+      },
+      
+      // Create a new ingredient
+      createIngredient(ingredientData) {
+        const newIngredient = {
+          id: Date.now().toString(),
+          ...ingredientData,
+          createdAt: new Date().toISOString(),
+          createdBy: AuthService.getCurrentUser().id
+        };
+        
+        this.ingredients.push(newIngredient);
+        this.saveIngredients();
+        
+        return newIngredient;
+      },
+      
+      // Update an existing ingredient
+      updateIngredient(id, ingredientData) {
+        const index = this.ingredients.findIndex(ingredient => ingredient.id === id);
+        
+        if (index === -1) {
+          throw new Error('Ingredient not found');
+        }
+        
+        // Update ingredient
+        this.ingredients[index] = {
+          ...this.ingredients[index],
+          ...ingredientData,
+          updatedAt: new Date().toISOString()
+        };
+        
+        this.saveIngredients();
+        
+        return this.ingredients[index];
+      },
+      
+      // Delete an ingredient
+      deleteIngredient(id) {
+        const index = this.ingredients.findIndex(ingredient => ingredient.id === id);
+        
+        if (index === -1) {
+          throw new Error('Ingredient not found');
+        }
+        
+        // Remove ingredient
+        this.ingredients.splice(index, 1);
+        
+        this.saveIngredients();
+        
+        return true;
+      },
+      
+      // Import ingredients from CSV
+      importIngredientsFromCSV(csvData) {
+        try {
+          // Parse CSV data
+          const lines = csvData.split('\n');
+          const headers = lines[0].split(',');
+          
+          // Validate CSV format
+          const requiredHeaders = ['Item Name', 'PKG', 'Unit', 'Price/PKG'];
+          for (const header of requiredHeaders) {
+            if (!headers.includes(header)) {
+              throw new Error(`CSV is missing required header: ${header}`);
+            }
+          }
+          
+          const newIngredients = [];
+          let id = this.ingredients.length > 0 ? 
+                  Math.max(...this.ingredients.map(i => parseInt(i.id))) + 1 : 
+                  1;
+          
+          // Start from index 1 to skip headers
+          for (let i = 1; i < lines.length; i++) {
+            if (!lines[i].trim()) continue; // Skip empty lines
+            
+            const values = lines[i].split(',');
+            if (values.length < 4) continue; // Skip invalid lines
+            
+            // Determine ingredient type based on name and nutritional values
+            let type = 'dry'; // Default
+            
+            // Check if it's a non-food item
+            if (values[0].includes('Paper') || 
+                values[0].includes('Cleaner') || 
+                values[0].includes('Box') || 
+                values[0].includes('Bag') ||
+                values[0].includes('Container') ||
+                values[0].includes('Film') ||
+                values[0].includes('Cloth') ||
+                values[0].includes('Gloves') ||
+                values[0].includes('Cap') ||
+                values[0].includes('Mop') ||
+                values[0].includes('Tag') ||
+                values[0].includes('Sticker')) {
+              type = 'non-food';
+            } 
+            // Check if it's a wet ingredient
+            else if (values[0].includes('Butter') || 
+                    values[0].includes('Oil') || 
+                    values[0].includes('Cheese') || 
+                    values[0].includes('Yeast') ||
+                    values[0].includes('Paste') ||
+                    values[0].includes('Cream') ||
+                    values[0].includes('Milk') ||
+                    values[0].includes('Yogurt') ||
+                    values[0].includes('Laban') ||
+                    values[0].includes('Sauce') ||
+                    values[0].includes('Honey') ||
+                    values[0].includes('Molasses')) {
+              type = 'wet';
+            }
+            
+            // Get column indexes
+            const nameIndex = headers.indexOf('Item Name');
+            const pkgIndex = headers.indexOf('PKG');
+            const unitIndex = headers.indexOf('Unit');
+            const pricePkgIndex = headers.indexOf('Price/PKG');
+            const priceUnitIndex = headers.indexOf('Price/Unit');
+            const caloriesIndex = headers.indexOf('Calories/100g');
+            const proteinIndex = headers.indexOf('Protein/100g');
+            const carbsIndex = headers.indexOf('Carbs/100g');
+            const fatIndex = headers.indexOf('Fat/100g');
+            
+            const ingredient = {
+              id: id.toString(),
+              name: values[nameIndex],
+              packageSize: parseFloat(values[pkgIndex]) || 0,
+              unit: values[unitIndex],
+              pricePerPackage: parseFloat(values[pricePkgIndex]) || 0,
+              pricePerUnit: parseFloat(values[priceUnitIndex]) || 0,
+              calories: caloriesIndex >= 0 ? (parseFloat(values[caloriesIndex]) || 0) : 0,
+              protein: proteinIndex >= 0 ? (parseFloat(values[proteinIndex]) || 0) : 0,
+              carbs: carbsIndex >= 0 ? (parseFloat(values[carbsIndex]) || 0) : 0,
+              fat: fatIndex >= 0 ? (parseFloat(values[fatIndex]) || 0) : 0,
+              type: type,
+              createdAt: new Date().toISOString(),
+              createdBy: AuthService.getCurrentUser().id
+            };
+            
+            newIngredients.push(ingredient);
+            id++;
+          }
+          
+          // Replace existing ingredients with new ones
+          this.ingredients = newIngredients;
+          this.saveIngredients();
+          
+          return {
+            success: true,
+            count: newIngredients.length,
+            message: `Successfully imported ${newIngredients.length} ingredients.`
+          };
+        } catch (error) {
+          console.error('Error importing CSV:', error);
+          return {
+            success: false,
+            message: `Error importing CSV: ${error.message}`
+          };
+        }
+      }
+    };
+    
+    // Current filter
+    let currentFilter = 'all';
+    let searchQuery = '';
+    
+    // Load ingredients
+    function loadIngredients() {
+      let ingredients = IngredientsDataService.getAllIngredients();
+      
+      // Apply type filter
+      if (currentFilter !== 'all') {
+        ingredients = ingredients.filter(ingredient => ingredient.type === currentFilter);
+      }
+      
+      // Apply search filter
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        ingredients = ingredients.filter(ingredient => 
+          ingredient.name.toLowerCase().includes(query)
+        );
+      }
+      
+      const container = document.getElementById('ingredients-container');
+      
+      // Clear container
+      container.innerHTML = '';
+      
+      // Add ingredients to container
+      ingredients.forEach(ingredient => {
+        const ingredientCard = document.createElement('div');
+        ingredientCard.className = 'ingredient-card';
+        
+        // Build HTML for ingredient card
+        let cardHtml = `
+          <h3>${ingredient.name}</h3>
+          <p><span class="ingredient-type type-${ingredient.type}">${ingredient.type}</span></p>
+          <p><strong>Package:</strong> ${ingredient.packageSize} ${ingredient.unit}</p>
+          <p><strong>Price:</strong> $${ingredient.pricePerPackage.toFixed(2)} per package ($${ingredient.pricePerUnit.toFixed(4)} per ${ingredient.unit})</p>
+        `;
+        
+        // Add nutritional information if it's a food item
+        if (ingredient.type !== 'non-food') {
+          cardHtml += `
+            <h4>Nutritional Information (per 100g)</h4>
+            <table class="nutrition-table">
+              <tr>
+                <th>Calories</th>
+                <th>Protein</th>
+                <th>Carbs</th>
+                <th>Fat</th>
+              </tr>
+              <tr>
+                <td>${ingredient.calories}</td>
+                <td>${ingredient.protein}g</td>
+                <td>${ingredient.carbs}g</td>
+                <td>${ingredient.fat}g</td>
+              </tr>
+            </table>
+          `;
+        }
+        
+        // Add buttons
+        cardHtml += `
+          <div style="margin-top: 10px;">
+            ${AuthService.hasPermission('manage_recipes') ? 
+              `<button class="btn edit-ingredient-btn" data-id="${ingredient.id}">Edit</button>
+               <button class="btn btn-secondary delete-ingredient-btn" data-id="${ingredient.id}">Delete</button>` : ''}
+          </div>
+        `;
+        
+        ingredientCard.innerHTML = cardHtml;
+        container.appendChild(ingredientCard);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.edit-ingredient-btn').forEach(btn => {
+        btn.addEventListener('click', () => editIngredient(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.delete-ingredient-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteIngredient(btn.getAttribute('data-id')));
+      });
+    }
+    
+    // Add ingredient
+    function addIngredient() {
+      // Reset form
+      document.getElementById('ingredient-form').reset();
+      document.getElementById('ingredient-id').value = '';
+      
+      // Set form title
+      document.getElementById('ingredient-form-title').textContent = 'Add New Ingredient';
+      
+      // Show modal
+      document.getElementById('ingredient-form-modal').style.display = 'block';
+    }
+    
+    // Edit ingredient
+    function editIngredient(ingredientId) {
+      const ingredient = IngredientsDataService.getIngredientById(ingredientId);
+      
+      // Set form values
+      document.getElementById('ingredient-id').value = ingredient.id;
+      document.getElementById('ingredient-name').value = ingredient.name;
+      document.getElementById('ingredient-type').value = ingredient.type;
+      document.getElementById('ingredient-package-size').value = ingredient.packageSize;
+      document.getElementById('ingredient-unit').value = ingredient.unit;
+      document.getElementById('ingredient-price-per-package').value = ingredient.pricePerPackage;
+      document.getElementById('ingredient-calories').value = ingredient.calories;
+      document.getElementById('ingredient-protein').value = ingredient.protein;
+      document.getElementById('ingredient-carbs').value = ingredient.carbs;
+      document.getElementById('ingredient-fat').value = ingredient.fat;
+      
+      // Set form title
+      document.getElementById('ingredient-form-title').textContent = 'Edit Ingredient';
+      
+      // Show modal
+      document.getElementById('ingredient-form-modal').style.display = 'block';
+    }
+    
+    // Delete ingredient
+    function deleteIngredient(ingredientId) {
+      if (confirm('Are you sure you want to delete this ingredient?')) {
+        IngredientsDataService.deleteIngredient(ingredientId);
+        loadIngredients();
+      }
+    }
+    
+    // Add ingredient button
+    document.getElementById('add-ingredient-btn').addEventListener('click', addIngredient);
+    
+    // Cancel ingredient form button
+    document.getElementById('cancel-ingredient-btn').addEventListener('click', () => {
+      document.getElementById('ingredient-form-modal').style.display = 'none';
+    });
+    
+    // Ingredient form submission
+    document.getElementById('ingredient-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const ingredientId = document.getElementById('ingredient-id').value;
+      
+      const ingredientData = {
+        name: document.getElementById('ingredient-name').value,
+        type: document.getElementById('ingredient-type').value,
+        packageSize: parseFloat(document.getElementById('ingredient-package-size').value),
+        unit: document.getElementById('ingredient-unit').value,
+        pricePerPackage: parseFloat(document.getElementById('ingredient-price-per-package').value),
+        pricePerUnit: parseFloat(document.getElementById('ingredient-price-per-package').value) / parseFloat(document.getElementById('ingredient-package-size').value),
+        calories: parseFloat(document.getElementById('ingredient-calories').value) || 0,
+        protein: parseFloat(document.getElementById('ingredient-protein').value) || 0,
+        carbs: parseFloat(document.getElementById('ingredient-carbs').value) || 0,
+        fat: parseFloat(document.getElementById('ingredient-fat').value) || 0
+      };
+      
+      if (ingredientId) {
+        // Update existing ingredient
+        IngredientsDataService.updateIngredient(ingredientId, ingredientData);
+      } else {
+        // Create new ingredient
+        IngredientsDataService.createIngredient(ingredientData);
+      }
+      
+      // Close modal
+      document.getElementById('ingredient-form-modal').style.display = 'none';
+      
+      // Reload ingredients
+      loadIngredients();
+    });
+    
+    // CSV Upload functionality
+    document.getElementById('upload-csv-btn').addEventListener('click', () => {
+      const fileInput = document.getElementById('csv-file-input');
+      const resultDiv = document.getElementById('upload-result');
+      
+      if (!fileInput.files || fileInput.files.length === 0) {
+        resultDiv.className = 'upload-result upload-error';
+        resultDiv.textContent = 'Please select a CSV file to upload.';
+        resultDiv.style.display = 'block';
+        return;
+      }
+      
+      const file = fileInput.files[0];
+      if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+        resultDiv.className = 'upload-result upload-error';
+        resultDiv.textContent = 'Please select a valid CSV file.';
+        resultDiv.style.display = 'block';
+        return;
+      }
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const csvData = e.target.result;
+        const result = IngredientsDataService.importIngredientsFromCSV(csvData);
+        
+        if (result.success) {
+          resultDiv.className = 'upload-result upload-success';
+          resultDiv.textContent = result.message;
+        } else {
+          resultDiv.className = 'upload-result upload-error';
+          resultDiv.textContent = result.message;
+        }
+        
+        resultDiv.style.display = 'block';
+        
+        // Reload ingredients
+        loadIngredients();
+      };
+      
+      reader.onerror = () => {
+        resultDiv.className = 'upload-result upload-error';
+        resultDiv.textContent = 'Error reading the CSV file.';
+        resultDiv.style.display = 'block';
+      };
+      
+      reader.readAsText(file);
+    });
+    
+    // Filter buttons
+    document.getElementById('filter-all-btn').addEventListener('click', () => {
+      currentFilter = 'all';
+      loadIngredients();
+    });
+    
+    document.getElementById('filter-dry-btn').addEventListener('click', () => {
+      currentFilter = 'dry';
+      loadIngredients();
+    });
+    
+    document.getElementById('filter-wet-btn').addEventListener('click', () => {
+      currentFilter = 'wet';
+      loadIngredients();
+    });
+    
+    document.getElementById('filter-non-food-btn').addEventListener('click', () => {
+      currentFilter = 'non-food';
+      loadIngredients();
+    });
+    
+    // Search box
+    document.getElementById('search-box').addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      loadIngredients();
+    });
+    
+    // Load ingredients on page load
+    loadIngredients();
+  </script>
+</body>
+</html>
