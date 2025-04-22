@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  <div class="container">
+    <div class="card" style="max-width: 400px; margin: 20px auto;">
+      <h2>Sign In</h2>
+      <div id="error-message" class="alert alert-danger"></div>
+      <div id="success-message" class="alert alert-success"></div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="remember" name="remember">
+          <label for="remember">Remember me</label>
+        </div>
+        <button type="submit" class="btn">Sign In</button>
+        <a href="/signup.html" class="btn btn-secondary">Sign Up</a>
+      </form>
+      <p style="margin-top: 20px; text-align: center;">
+        <a href="#" id="forgot-password" style="color: #4C7A4C; text-decoration: none;">Forgot password?</a>
+      </p>
+      <div style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
+        <h4 style="margin-top: 0;">Demo Accounts:</h4>
+        <ul style="margin-bottom: 0;">
+          <li><strong>Admin:</strong> admin@example.com / Admin123!</li>
+          <li><strong>Manager:</strong> manager@example.com / Manager123!</li>
+          <li><strong>Baker:</strong> baker@example.com / Baker123!</li>
+          <li><strong>Trainee:</strong> trainee@example.com / Trainee123!</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="card" style="margin-top: 30px;">
+      <h2>Features</h2>
+      <ul>
+        <li><strong>User Roles:</strong> Admin, Manager, Baker, and Trainee access levels</li>
+        <li><strong>Recipe Management:</strong> Create, edit, and view sourdough recipes</li>
+        <li><strong>Task Tracking:</strong> Manage baking tasks and schedules</li>
+        <li><strong>Starter Management:</strong> Track feeding schedules and health</li>
+        <li><strong>Timers:</strong> Set timers for various baking processes</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // DOM elements
+    const loginForm = document.getElementById('login-form');
+    const forgotPasswordLink = document.getElementById('forgot-password');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+
+    // Check if already logged in
+    if (AuthService.isSignedIn()) {
+      window.location.href = '/dashboard.html';
+    }
+
+    // Login functionality
+    if (loginForm) {
+      loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        // Get user info
+        const email = loginForm['email'].value;
+        const password = loginForm['password'].value;
+        const rememberMe = loginForm['remember'].checked;
+        
+        // Clear previous messages
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+        
+        try {
+          // Sign in user
+          AuthService.signIn(email, password, rememberMe);
+          
+          // Show success message
+          successMessage.textContent = 'Login successful! Redirecting...';
+          successMessage.style.display = 'block';
+          
+          // Redirect to dashboard
+          setTimeout(() => {
+            window.location.href = '/dashboard.html';
+          }, 1000);
+        } catch (error) {
+          // Show error message
+          errorMessage.textContent = error.message || 'Failed to login. Please check your credentials.';
+          errorMessage.style.display = 'block';
+        }
+      });
+    }
+
+    // Forgot password functionality
+    if (forgotPasswordLink) {
+      forgotPasswordLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        const email = prompt('Please enter your email address:');
+        if (email) {
+          try {
+            AuthService.sendPasswordResetEmail(email);
+            alert('Password reset email sent! (This is a demo, so no actual email is sent)');
+          } catch (error) {
+            alert(error.message || 'Failed to send password reset email.');
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
