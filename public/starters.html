@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Starters - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+  <script>
+  // Starter Data Service
+  const StarterDataService = {
+    // Starters storage
+    starters: JSON.parse(localStorage.getItem('sourdough_starters') || '[]'),
+    
+    // Feedings storage
+    feedings: JSON.parse(localStorage.getItem('sourdough_feedings') || '[]'),
+    
+    // Save starters to local storage
+    saveStarters() {
+      localStorage.setItem('sourdough_starters', JSON.stringify(this.starters));
+    },
+    
+    // Save feedings to local storage
+    saveFeedings() {
+      localStorage.setItem('sourdough_feedings', JSON.stringify(this.feedings));
+    },
+    
+    // Get all starters
+    getAllStarters() {
+      return this.starters;
+    },
+    
+    // Get starter by ID
+    getStarterById(id) {
+      return this.starters.find(starter => starter.id === id);
+    },
+    
+    // Get feedings for a starter
+    getFeedings(starterId) {
+      return this.feedings.filter(feeding => feeding.starterId === starterId);
+    },
+    
+    // Get last feeding for a starter
+    getLastFeeding(starterId) {
+      const starterFeedings = this.getFeedings(starterId);
+      if (starterFeedings.length === 0) return null;
+      
+      return starterFeedings.sort((a, b) => new Date(b.date + 'T' + b.time) - new Date(a.date + 'T' + a.time))[0];
+    },
+    
+    // Create a new starter
+    createStarter(starterData) {
+      const newStarter = {
+        id: Date.now().toString(),
+        ...starterData,
+        createdAt: new Date().toISOString(),
+        createdBy: AuthService.getCurrentUser().id
+      };
+      
+      this.starters.push(newStarter);
+      this.saveStarters();
+      
+      return newStarter;
+    },
+    
+    // Update an existing starter
+    updateStarter(id, starterData) {
+      const index = this.starters.findIndex(starter => starter.id === id);
+      
+      if (index === -1) {
+        throw new Error('Starter not found');
+      }
+      
+      // Update starter
+      this.starters[index] = {
+        ...this.starters[index],
+        ...starterData,
+        updatedAt: new Date().toISOString()
+      };
+      
+      this.saveStarters();
+      
+      return this.starters[index];
+    },
+    
+    // Delete a starter
+    deleteStarter(id) {
+      const index = this.starters.findIndex(starter => starter.id === id);
+      
+      if (index === -1) {
+        throw new Error('Starter not found');
+      }
+      
+      // Remove starter
+      this.starters.splice(index, 1);
+      
+      // Remove associated feedings
+      this.feedings = this.feedings.filter(feeding => feeding.starterId !== id);
+      
+      this.saveStarters();
+      this.saveFeedings();
+      
+      return true;
+    },
+    
+    // Record a feeding
+    recordFeeding(feedingData) {
+      const newFeeding = {
+        id: Date.now().toString(),
+        ...feedingData,
+        recordedAt: new Date().toISOString(),
+        recordedBy: AuthService.getCurrentUser().id
+      };
+      
+      this.feedings.push(newFeeding);
+      this.saveFeedings();
+      
+      return newFeeding;
+    },
+    
+    // Initialize with sample starters
+    initSampleStarters() {
+      // Only initialize if no starters exist
+      if (this.starters.length === 0) {
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        
+        const sampleStarters = [
+          {
+            id: '1',
+            name: 'Main Starter',
+            type: '100% Hydration White Flour',
+            created: '2023-01-15',
+            feedingSchedule: 'Twice daily (8:00 AM, 8:00 PM)',
+            notes: 'My primary starter for most bread recipes.',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '2',
+            name: 'Rye Starter',
+            type: '100% Hydration Rye Flour',
+            created: '2023-03-10',
+            feedingSchedule: 'Once daily (8:00 PM)',
+            notes: 'Used for rye bread and when I want a more sour flavor.',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '3',
+            name: 'Whole Wheat Starter',
+            type: '100% Hydration Whole Wheat Flour',
+            created: '2023-06-05',
+            feedingSchedule: 'Once daily (8:00 PM)',
+            notes: 'Great for whole grain breads.',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          }
+        ];
+        
+        const sampleFeedings = [
+          {
+            id: '1',
+            starterId: '1',
+            date: today.toISOString().split('T')[0],
+            time: '08:00',
+            flourAmount: 50,
+            waterAmount: 50,
+            starterAmount: 50,
+            notes: 'Starter looks very active with lots of bubbles.',
+            recordedAt: new Date().toISOString(),
+            recordedBy: 'system'
+          },
+          {
+            id: '2',
+            starterId: '2',
+            date: yesterday.toISOString().split('T')[0],
+            time: '20:00',
+            flourAmount: 50,
+            waterAmount: 50,
+            starterAmount: 50,
+            notes: 'Smells nicely sour.',
+            recordedAt: new Date().toISOString(),
+            recordedBy: 'system'
+          },
+          {
+            id: '3',
+            starterId: '3',
+            date: yesterday.toISOString().split('T')[0],
+            time: '20:00',
+            flourAmount: 50,
+            waterAmount: 50,
+            starterAmount: 50,
+            notes: 'Doubled in size after 4 hours.',
+            recordedAt: new Date().toISOString(),
+            recordedBy: 'system'
+          }
+        ];
+        
+        this.starters = sampleStarters;
+        this.feedings = sampleFeedings;
+        this.saveStarters();
+        this.saveFeedings();
+        
+        console.log('Sample starters and feedings created');
+      }
+    }
+  };
+
+  // Initialize sample starters
+  StarterDataService.initSampleStarters();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>Sourdough Starters</h2>
+      <div id="starter-controls">
+        <button id="add-starter-btn" class="btn" style="display: none;">Add New Starter</button>
+      </div>
+    </div>
+    
+    <div class="dashboard-grid" id="starters-container">
+      <!-- Starters will be loaded here dynamically -->
+    </div>
+  </div>
+
+  <!-- Add/Edit Starter Modal -->
+  <div id="starter-form-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; overflow-y: auto;">
+    <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+      <h2 id="starter-form-title">Add New Starter</h2>
+      <form id="starter-form">
+        <input type="hidden" id="starter-id">
+        <div class="form-group">
+          <label for="starter-name">Starter Name</label>
+          <input type="text" id="starter-name" required>
+        </div>
+        <div class="form-group">
+          <label for="starter-type">Type</label>
+          <input type="text" id="starter-type" placeholder="e.g., 100% Hydration White Flour" required>
+        </div>
+        <div class="form-group">
+          <label for="starter-created">Date Created</label>
+          <input type="date" id="starter-created" required>
+        </div>
+        <div class="form-group">
+          <label for="starter-schedule">Feeding Schedule</label>
+          <input type="text" id="starter-schedule" placeholder="e.g., Twice daily (8:00 AM, 8:00 PM)" required>
+        </div>
+        <div class="form-group">
+          <label for="starter-notes">Notes (optional)</label>
+          <textarea id="starter-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn">Save Starter</button>
+        <button type="button" id="cancel-starter-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Feeding Modal -->
+  <div id="feeding-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; overflow-y: auto;">
+    <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+      <h2>Record Feeding</h2>
+      <form id="feeding-form">
+        <input type="hidden" id="feeding-starter-id">
+        <div class="form-group">
+          <label for="feeding-date">Date</label>
+          <input type="date" id="feeding-date" required>
+        </div>
+        <div class="form-group">
+          <label for="feeding-time">Time</label>
+          <input type="time" id="feeding-time" required>
+        </div>
+        <div class="form-group">
+          <label for="flour-amount">Flour Amount (g)</label>
+          <input type="number" id="flour-amount" min="1" value="50" required>
+        </div>
+        <div class="form-group">
+          <label for="water-amount">Water Amount (g)</label>
+          <input type="number" id="water-amount" min="1" value="50" required>
+        </div>
+        <div class="form-group">
+          <label for="starter-amount">Starter Amount (g)</label>
+          <input type="number" id="starter-amount" min="1" value="50" required>
+        </div>
+        <div class="form-group">
+          <label for="feeding-notes">Notes (optional)</label>
+          <textarea id="feeding-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn">Save Feeding</button>
+        <button type="button" id="cancel-feeding-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Feeding History Modal -->
+  <div id="feeding-history-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; overflow-y: auto;">
+    <div style="background-color: white; margin: 5% auto; padding: 20px; width: 80%; max-width: 700px; border-radius: 8px;">
+      <h2 id="feeding-history-title">Feeding History</h2>
+      <div id="feeding-history-content">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="background-color: #f2f2f2;">
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Date</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Time</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Flour (g)</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Water (g)</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Starter (g)</th>
+              <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Notes</th>
+            </tr>
+          </thead>
+          <tbody id="feeding-history-table">
+            <!-- Feeding history will be loaded here dynamically -->
+          </tbody>
+        </table>
+      </div>
+      <button id="close-feeding-history-btn" class="btn btn-secondary" style="margin-top: 20px;">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Show add starter button based on permissions
+    if (AuthService.hasPermission('manage_starters')) {
+      document.getElementById('add-starter-btn').style.display = 'inline-block';
+    }
+    
+    // Format date for display
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString();
+    }
+    
+    // Format date and time for display
+    function formatDateTime(dateString, timeString) {
+      const date = new Date(`${dateString}T${timeString}`);
+      return `${date.toLocaleDateString()} ${timeString}`;
+    }
+    
+    // Load starters
+    function loadStarters() {
+      const starters = StarterDataService.getAllStarters();
+      const container = document.getElementById('starters-container');
+      
+      // Clear container
+      container.innerHTML = '';
+      
+      // Add starters to container
+      starters.forEach(starter => {
+        const starterCard = document.createElement('div');
+        starterCard.className = 'dashboard-card';
+        
+        // Get last feeding
+        const lastFeeding = StarterDataService.getLastFeeding(starter.id);
+        const lastFedText = lastFeeding ? 
+          formatDateTime(lastFeeding.date, lastFeeding.time) : 
+          'No feeding recorded';
+        
+        starterCard.innerHTML = `
+          <h3>${starter.name}</h3>
+          <p><strong>Type:</strong> ${starter.type}</p>
+          <p><strong>Created:</strong> ${formatDate(starter.created)}</p>
+          <p><strong>Last Fed:</strong> ${lastFedText}</p>
+          <p><strong>Feeding Schedule:</strong> ${starter.feedingSchedule}</p>
+          ${starter.notes ? `<p><strong>Notes:</strong> ${starter.notes}</p>` : ''}
+          <div style="margin-top: 15px;">
+            <button class="btn record-feeding-btn" data-id="${starter.id}">Record Feeding</button>
+            <button class="btn view-feeding-history-btn" data-id="${starter.id}">View History</button>
+            ${AuthService.hasPermission('manage_starters') ? 
+              `<button class="btn btn-secondary edit-starter-btn" data-id="${starter.id}">Edit</button>
+               <button class="btn btn-secondary delete-starter-btn" data-id="${starter.id}">Delete</button>` : ''}
+          </div>
+        `;
+        
+        container.appendChild(starterCard);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.record-feeding-btn').forEach(btn => {
+        btn.addEventListener('click', () => recordFeeding(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.view-feeding-history-btn').forEach(btn => {
+        btn.addEventListener('click', () => viewFeedingHistory(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.edit-starter-btn').forEach(btn => {
+        btn.addEventListener('click', () => editStarter(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.delete-starter-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteStarter(btn.getAttribute('data-id')));
+      });
+    }
+    
+    // Record feeding
+    function recordFeeding(starterId) {
+      // Reset form
+      document.getElementById('feeding-form').reset();
+      document.getElementById('feeding-starter-id').value = starterId;
+      
+      // Set default date and time to now
+      const now = new Date();
+      const dateString = now.toISOString().split('T')[0];
+      const timeString = now.toTimeString().split(' ')[0].substring(0, 5);
+      document.getElementById('feeding-date').value = dateString;
+      document.getElementById('feeding-time').value = timeString;
+      
+      // Show modal
+      document.getElementById('feeding-modal').style.display = 'block';
+    }
+    
+    // View feeding history
+    function viewFeedingHistory(starterId) {
+      const starter = StarterDataService.getStarterById(starterId);
+      const feedings = StarterDataService.getFeedings(starterId);
+      
+      // Set modal title
+      document.getElementById('feeding-history-title').textContent = `Feeding History: ${starter.name}`;
+      
+      // Clear table
+      const tableBody = document.getElementById('feeding-history-table');
+      tableBody.innerHTML = '';
+      
+      // Sort feedings by date and time (newest first)
+      feedings.sort((a, b) => new Date(b.date + 'T' + b.time) - new Date(a.date + 'T' + a.time));
+      
+      // Add feedings to table
+      feedings.forEach(feeding => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${formatDate(feeding.date)}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${feeding.time}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${feeding.flourAmount}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${feeding.waterAmount}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${feeding.starterAmount}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${feeding.notes || ''}</td>
+        `;
+        
+        tableBody.appendChild(row);
+      });
+      
+      // Show modal
+      document.getElementById('feeding-history-modal').style.display = 'block';
+    }
+    
+    // Add starter
+    function addStarter() {
+      // Reset form
+      document.getElementById('starter-form').reset();
+      document.getElementById('starter-id').value = '';
+      
+      // Set default date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('starter-created').value = today;
+      
+      // Set form title
+      document.getElementById('starter-form-title').textContent = 'Add New Starter';
+      
+      // Show modal
+      document.getElementById('starter-form-modal').style.display = 'block';
+    }
+    
+    // Edit starter
+    function editStarter(starterId) {
+      const starter = StarterDataService.getStarterById(starterId);
+      
+      // Set form values
+      document.getElementById('starter-id').value = starter.id;
+      document.getElementById('starter-name').value = starter.name;
+      document.getElementById('starter-type').value = starter.type;
+      document.getElementById('starter-created').value = starter.created;
+      document.getElementById('starter-schedule').value = starter.feedingSchedule;
+      document.getElementById('starter-notes').value = starter.notes || '';
+      
+      // Set form title
+      document.getElementById('starter-form-title').textContent = 'Edit Starter';
+      
+      // Show modal
+      document.getElementById('starter-form-modal').style.display = 'block';
+    }
+    
+    // Delete starter
+    function deleteStarter(starterId) {
+      if (confirm('Are you sure you want to delete this starter? This will also delete all feeding records.')) {
+        StarterDataService.deleteStarter(starterId);
+        loadStarters();
+      }
+    }
+    
+    // Add starter button
+    document.getElementById('add-starter-btn').addEventListener('click', addStarter);
+    
+    // Cancel starter form button
+    document.getElementById('cancel-starter-btn').addEventListener('click', () => {
+      document.getElementById('starter-form-modal').style.display = 'none';
+    });
+    
+    // Starter form submission
+    document.getElementById('starter-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const starterId = document.getElementById('starter-id').value;
+      const starterData = {
+        name: document.getElementById('starter-name').value,
+        type: document.getElementById('starter-type').value,
+        created: document.getElementById('starter-created').value,
+        feedingSchedule: document.getElementById('starter-schedule').value,
+        notes: document.getElementById('starter-notes').value
+      };
+      
+      if (starterId) {
+        // Update existing starter
+        StarterDataService.updateStarter(starterId, starterData);
+      } else {
+        // Create new starter
+        StarterDataService.createStarter(starterData);
+      }
+      
+      // Close modal
+      document.getElementById('starter-form-modal').style.display = 'none';
+      
+      // Reload starters
+      loadStarters();
+    });
+    
+    // Cancel feeding button
+    document.getElementById('cancel-feeding-btn').addEventListener('click', () => {
+      document.getElementById('feeding-modal').style.display = 'none';
+    });
+    
+    // Close feeding history button
+    document.getElementById('close-feeding-history-btn').addEventListener('click', () => {
+      document.getElementById('feeding-history-modal').style.display = 'none';
+    });
+    
+    // Feeding form submission
+    document.getElementById('feeding-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const feedingData = {
+        starterId: document.getElementById('feeding-starter-id').value,
+        date: document.getElementById('feeding-date').value,
+        time: document.getElementById('feeding-time').value,
+        flourAmount: parseInt(document.getElementById('flour-amount').value),
+        waterAmount: parseInt(document.getElementById('water-amount').value),
+        starterAmount: parseInt(document.getElementById('starter-amount').value),
+        notes: document.getElementById('feeding-notes').value
+      };
+      
+      // Record feeding
+      StarterDataService.recordFeeding(feedingData);
+      
+      // Close modal
+      document.getElementById('feeding-modal').style.display = 'none';
+      
+      // Reload starters
+      loadStarters();
+    });
+    
+    // Load starters on page load
+    loadStarters();
+  </script>
+</body>
+</html>

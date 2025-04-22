@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>User Profile</h2>
+      <div id="profile-info" style="margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+          <div style="width: 80px; height: 80px; background-color: #4C7A4C; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 2rem; margin-right: 20px;" id="user-avatar"></div>
+          <div>
+            <h3 id="user-display-name">User Name</h3>
+            <p id="user-email">user@example.com</p>
+            <span id="user-role-badge" class="badge"></span>
+          </div>
+        </div>
+        
+        <div id="email-verification-status" style="margin: 15px 0; padding: 10px; border-radius: 4px;"></div>
+      </div>
+      
+      <form id="profile-form">
+        <div class="form-group">
+          <label for="display-name">Display Name</label>
+          <input type="text" id="display-name" name="display-name" required>
+        </div>
+        <button type="submit" class="btn">Update Profile</button>
+      </form>
+      
+      <div style="margin-top: 30px;">
+        <h3>Account Actions</h3>
+        <button id="change-password-btn" class="btn">Change Password</button>
+        <button id="logout-btn" class="btn btn-secondary">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Change Password Modal -->
+  <div id="password-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+      <h2>Change Password</h2>
+      <form id="password-form">
+        <div class="form-group">
+          <label for="current-password">Current Password</label>
+          <input type="password" id="current-password" required>
+        </div>
+        <div class="form-group">
+          <label for="new-password">New Password</label>
+          <input type="password" id="new-password" required minlength="6">
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm New Password</label>
+          <input type="password" id="confirm-password" required minlength="6">
+        </div>
+        <button type="submit" class="btn">Change Password</button>
+        <button type="button" id="cancel-password-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Update profile info
+    document.getElementById('user-display-name').textContent = currentUser.displayName;
+    document.getElementById('user-email').textContent = currentUser.email;
+    document.getElementById('display-name').value = currentUser.displayName;
+    
+    // Set user avatar (first letter of display name)
+    document.getElementById('user-avatar').textContent = currentUser.displayName.charAt(0).toUpperCase();
+    
+    // Set role badge
+    const roleBadge = document.getElementById('user-role-badge');
+    roleBadge.textContent = currentUser.role.toUpperCase();
+    roleBadge.classList.add(`badge-${currentUser.role}`);
+    
+    // Set email verification status
+    const verificationStatus = document.getElementById('email-verification-status');
+    if (currentUser.emailVerified) {
+      verificationStatus.style.backgroundColor = '#d4edda';
+      verificationStatus.style.color = '#155724';
+      verificationStatus.style.border = '1px solid #c3e6cb';
+      verificationStatus.innerHTML = '<strong>✓ Email Verified</strong>';
+    } else {
+      verificationStatus.style.backgroundColor = '#fff3cd';
+      verificationStatus.style.color = '#856404';
+      verificationStatus.style.border = '1px solid #ffeeba';
+      verificationStatus.innerHTML = '<strong>⚠ Email Not Verified</strong> - Please verify your email address. <button id="resend-verification-btn" class="btn" style="padding: 2px 8px; margin-left: 10px;">Resend</button>';
+      
+      // Resend verification email
+      document.getElementById('resend-verification-btn').addEventListener('click', () => {
+        try {
+          AuthService.sendEmailVerification();
+          alert('Verification email sent! Please check your inbox.');
+        } catch (error) {
+          alert(error.message || 'Failed to send verification email.');
+        }
+      });
+    }
+    
+    // Profile form submission
+    document.getElementById('profile-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const displayName = document.getElementById('display-name').value;
+      
+      try {
+        // Update profile
+        AuthService.updateProfile(displayName);
+        
+        // Update UI
+        document.getElementById('user-display-name').textContent = displayName;
+        document.getElementById('user-avatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        alert('Profile updated successfully!');
+      } catch (error) {
+        alert(error.message || 'Failed to update profile.');
+      }
+    });
+    
+    // Change password button
+    document.getElementById('change-password-btn').addEventListener('click', () => {
+      document.getElementById('password-form').reset();
+      document.getElementById('password-modal').style.display = 'block';
+    });
+    
+    // Cancel password change button
+    document.getElementById('cancel-password-btn').addEventListener('click', () => {
+      document.getElementById('password-modal').style.display = 'none';
+    });
+    
+    // Password form submission
+    document.getElementById('password-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const currentPassword = document.getElementById('current-password').value;
+      const newPassword = document.getElementById('new-password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      
+      // Check if current password is correct
+      const user = AuthService.users.find(user => user.id === currentUser.id);
+      if (!user || user.password !== currentPassword) {
+        alert('Current password is incorrect.');
+        return;
+      }
+      
+      // Check if new passwords match
+      if (newPassword !== confirmPassword) {
+        alert('New passwords do not match.');
+        return;
+      }
+      
+      // Update password
+      user.password = newPassword;
+      AuthService.saveUsers();
+      
+      // Close modal
+      document.getElementById('password-modal').style.display = 'none';
+      
+      alert('Password changed successfully!');
+    });
+    
+    // Logout button
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      AuthService.signOut();
+      window.location.href = '/index.html';
+    });
+  </script>
+</body>
+</html>

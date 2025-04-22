@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tasks - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+  <script>
+  // Task Data Service
+  const TaskDataService = {
+    // Tasks storage
+    tasks: JSON.parse(localStorage.getItem('sourdough_tasks') || '[]'),
+    
+    // Save tasks to local storage
+    saveTasks() {
+      localStorage.setItem('sourdough_tasks', JSON.stringify(this.tasks));
+    },
+    
+    // Get all tasks
+    getAllTasks() {
+      return this.tasks;
+    },
+    
+    // Get task by ID
+    getTaskById(id) {
+      return this.tasks.find(task => task.id === id);
+    },
+    
+    // Get today's tasks
+    getTodayTasks() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      return this.tasks.filter(task => {
+        const taskDate = new Date(task.date);
+        taskDate.setHours(0, 0, 0, 0);
+        return taskDate.getTime() === today.getTime();
+      });
+    },
+    
+    // Get upcoming tasks
+    getUpcomingTasks() {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      return this.tasks.filter(task => {
+        const taskDate = new Date(task.date);
+        taskDate.setHours(0, 0, 0, 0);
+        return taskDate.getTime() > today.getTime();
+      }).sort((a, b) => new Date(a.date) - new Date(b.date));
+    },
+    
+    // Create a new task
+    createTask(taskData) {
+      const newTask = {
+        id: Date.now().toString(),
+        ...taskData,
+        status: 'pending',
+        createdAt: new Date().toISOString(),
+        createdBy: AuthService.getCurrentUser().id
+      };
+      
+      this.tasks.push(newTask);
+      this.saveTasks();
+      
+      return newTask;
+    },
+    
+    // Update an existing task
+    updateTask(id, taskData) {
+      const index = this.tasks.findIndex(task => task.id === id);
+      
+      if (index === -1) {
+        throw new Error('Task not found');
+      }
+      
+      // Update task
+      this.tasks[index] = {
+        ...this.tasks[index],
+        ...taskData,
+        updatedAt: new Date().toISOString()
+      };
+      
+      this.saveTasks();
+      
+      return this.tasks[index];
+    },
+    
+    // Delete a task
+    deleteTask(id) {
+      const index = this.tasks.findIndex(task => task.id === id);
+      
+      if (index === -1) {
+        throw new Error('Task not found');
+      }
+      
+      // Remove task
+      this.tasks.splice(index, 1);
+      
+      this.saveTasks();
+      
+      return true;
+    },
+    
+    // Complete a task
+    completeTask(id) {
+      const index = this.tasks.findIndex(task => task.id === id);
+      
+      if (index === -1) {
+        throw new Error('Task not found');
+      }
+      
+      // Update task status
+      this.tasks[index].status = 'completed';
+      this.tasks[index].completedAt = new Date().toISOString();
+      
+      this.saveTasks();
+      
+      return this.tasks[index];
+    },
+    
+    // Initialize with sample tasks
+    initSampleTasks() {
+      // Only initialize if no tasks exist
+      if (this.tasks.length === 0) {
+        const today = new Date();
+        const tomorrow = new Date();
+        tomorrow.setDate(today.getDate() + 1);
+        
+        const sampleTasks = [
+          {
+            id: '1',
+            title: 'Feed starter',
+            date: today.toISOString().split('T')[0],
+            time: '08:00',
+            status: 'completed',
+            completedAt: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '2',
+            title: 'Mix dough for Basic Sourdough',
+            date: today.toISOString().split('T')[0],
+            time: '14:00',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '3',
+            title: 'Feed starter',
+            date: today.toISOString().split('T')[0],
+            time: '20:00',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '4',
+            title: 'Shape loaves',
+            date: tomorrow.toISOString().split('T')[0],
+            time: '09:00',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          },
+          {
+            id: '5',
+            title: 'Bake loaves',
+            date: tomorrow.toISOString().split('T')[0],
+            time: '14:00',
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            createdBy: 'system'
+          }
+        ];
+        
+        this.tasks = sampleTasks;
+        this.saveTasks();
+        
+        console.log('Sample tasks created');
+      }
+    }
+  };
+
+  // Initialize sample tasks
+  TaskDataService.initSampleTasks();
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>Tasks</h2>
+      <div id="task-controls">
+        <button id="add-task-btn" class="btn" style="display: none;">Add New Task</button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <h3>Today's Tasks</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Task</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Time</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Status</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="today-tasks">
+          <!-- Today's tasks will be loaded here dynamically -->
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="card" style="margin-top: 20px;">
+      <h3>Upcoming Tasks</h3>
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="background-color: #f2f2f2;">
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Task</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Date</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Time</th>
+            <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="upcoming-tasks">
+          <!-- Upcoming tasks will be loaded here dynamically -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Add/Edit Task Modal -->
+  <div id="task-form-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000; overflow-y: auto;">
+    <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+      <h2 id="task-form-title">Add New Task</h2>
+      <form id="task-form">
+        <input type="hidden" id="task-id">
+        <div class="form-group">
+          <label for="task-title">Task Title</label>
+          <input type="text" id="task-title" required>
+        </div>
+        <div class="form-group">
+          <label for="task-date">Date</label>
+          <input type="date" id="task-date" required>
+        </div>
+        <div class="form-group">
+          <label for="task-time">Time</label>
+          <input type="time" id="task-time" required>
+        </div>
+        <div class="form-group">
+          <label for="task-notes">Notes (optional)</label>
+          <textarea id="task-notes" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn">Save Task</button>
+        <button type="button" id="cancel-task-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Show add task button based on permissions
+    if (AuthService.hasPermission('manage_tasks')) {
+      document.getElementById('add-task-btn').style.display = 'inline-block';
+    }
+    
+    // Format date for display
+    function formatDate(dateString) {
+      const date = new Date(dateString);
+      return date.toLocaleDateString();
+    }
+    
+    // Load tasks
+    function loadTasks() {
+      // Load today's tasks
+      const todayTasks = TaskDataService.getTodayTasks();
+      const todayTasksContainer = document.getElementById('today-tasks');
+      
+      // Clear container
+      todayTasksContainer.innerHTML = '';
+      
+      // Add tasks to container
+      todayTasks.forEach(task => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${task.title}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${task.time}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${task.status === 'completed' ? 'Completed' : 'Pending'}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+            ${task.status === 'pending' ? 
+              `<button class="btn complete-task-btn" style="padding: 5px 10px;" data-id="${task.id}">Complete</button>` : 
+              `<button class="btn" style="padding: 5px 10px;" disabled>Complete</button>`}
+            ${AuthService.hasPermission('manage_tasks') ? 
+              `<button class="btn btn-secondary edit-task-btn" style="padding: 5px 10px;" data-id="${task.id}">Edit</button>
+               <button class="btn btn-secondary delete-task-btn" style="padding: 5px 10px;" data-id="${task.id}">Delete</button>` : ''}
+          </td>
+        `;
+        
+        todayTasksContainer.appendChild(row);
+      });
+      
+      // Load upcoming tasks
+      const upcomingTasks = TaskDataService.getUpcomingTasks();
+      const upcomingTasksContainer = document.getElementById('upcoming-tasks');
+      
+      // Clear container
+      upcomingTasksContainer.innerHTML = '';
+      
+      // Add tasks to container
+      upcomingTasks.forEach(task => {
+        const row = document.createElement('tr');
+        
+        row.innerHTML = `
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${task.title}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${formatDate(task.date)}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">${task.time}</td>
+          <td style="padding: 10px; border-bottom: 1px solid #ddd;">
+            ${AuthService.hasPermission('manage_tasks') ? 
+              `<button class="btn btn-secondary edit-task-btn" style="padding: 5px 10px;" data-id="${task.id}">Edit</button>
+               <button class="btn btn-secondary delete-task-btn" style="padding: 5px 10px;" data-id="${task.id}">Delete</button>` : ''}
+          </td>
+        `;
+        
+        upcomingTasksContainer.appendChild(row);
+      });
+      
+      // Add event listeners
+      document.querySelectorAll('.complete-task-btn').forEach(btn => {
+        btn.addEventListener('click', () => completeTask(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.edit-task-btn').forEach(btn => {
+        btn.addEventListener('click', () => editTask(btn.getAttribute('data-id')));
+      });
+      
+      document.querySelectorAll('.delete-task-btn').forEach(btn => {
+        btn.addEventListener('click', () => deleteTask(btn.getAttribute('data-id')));
+      });
+    }
+    
+    // Complete task
+    function completeTask(taskId) {
+      TaskDataService.completeTask(taskId);
+      loadTasks();
+    }
+    
+    // Add task
+    function addTask() {
+      // Reset form
+      document.getElementById('task-form').reset();
+      document.getElementById('task-id').value = '';
+      
+      // Set default date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('task-date').value = today;
+      
+      // Set form title
+      document.getElementById('task-form-title').textContent = 'Add New Task';
+      
+      // Show modal
+      document.getElementById('task-form-modal').style.display = 'block';
+    }
+    
+    // Edit task
+    function editTask(taskId) {
+      const task = TaskDataService.getTaskById(taskId);
+      
+      // Set form values
+      document.getElementById('task-id').value = task.id;
+      document.getElementById('task-title').value = task.title;
+      document.getElementById('task-date').value = task.date;
+      document.getElementById('task-time').value = task.time;
+      document.getElementById('task-notes').value = task.notes || '';
+      
+      // Set form title
+      document.getElementById('task-form-title').textContent = 'Edit Task';
+      
+      // Show modal
+      document.getElementById('task-form-modal').style.display = 'block';
+    }
+    
+    // Delete task
+    function deleteTask(taskId) {
+      if (confirm('Are you sure you want to delete this task?')) {
+        TaskDataService.deleteTask(taskId);
+        loadTasks();
+      }
+    }
+    
+    // Add task button
+    document.getElementById('add-task-btn').addEventListener('click', addTask);
+    
+    // Cancel task form button
+    document.getElementById('cancel-task-btn').addEventListener('click', () => {
+      document.getElementById('task-form-modal').style.display = 'none';
+    });
+    
+    // Task form submission
+    document.getElementById('task-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const taskId = document.getElementById('task-id').value;
+      const taskData = {
+        title: document.getElementById('task-title').value,
+        date: document.getElementById('task-date').value,
+        time: document.getElementById('task-time').value,
+        notes: document.getElementById('task-notes').value
+      };
+      
+      if (taskId) {
+        // Update existing task
+        TaskDataService.updateTask(taskId, taskData);
+      } else {
+        // Create new task
+        TaskDataService.createTask(taskData);
+      }
+      
+      // Close modal
+      document.getElementById('task-form-modal').style.display = 'none';
+      
+      // Reload tasks
+      loadTasks();
+    });
+    
+    // Load tasks on page load
+    loadTasks();
+  </script>
+</body>
+</html>

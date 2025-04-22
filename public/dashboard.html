@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>Dashboard</h2>
+      <p>Welcome, <span id="user-name">User</span>! <span id="user-role-badge" class="badge"></span></p>
+      <button id="logout-btn" class="btn btn-secondary">Logout</button>
+    </div>
+    
+    <div class="dashboard-grid">
+      <div class="dashboard-card">
+        <h3>Recent Recipes</h3>
+        <ul id="recent-recipes">
+          <li>Loading recipes...</li>
+        </ul>
+        <a href="/recipes.html" class="btn">View All Recipes</a>
+      </div>
+      
+      <div class="dashboard-card">
+        <h3>Upcoming Tasks</h3>
+        <ul id="upcoming-tasks">
+          <li>Loading tasks...</li>
+        </ul>
+        <a href="/tasks.html" class="btn">View All Tasks</a>
+      </div>
+      
+      <div class="dashboard-card">
+        <h3>Active Starters</h3>
+        <ul id="active-starters">
+          <li>Loading starters...</li>
+        </ul>
+        <a href="/starters.html" class="btn">View All Starters</a>
+      </div>
+      
+      <div class="dashboard-card">
+        <h3>Active Timers</h3>
+        <p id="no-timers-message">No active timers</p>
+        <ul id="active-timers"></ul>
+        <a href="/timers.html" class="btn">Set New Timer</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Update user name and role badge
+    document.getElementById('user-name').textContent = currentUser.displayName;
+    const roleBadge = document.getElementById('user-role-badge');
+    roleBadge.textContent = currentUser.role.toUpperCase();
+    roleBadge.classList.add(`badge-${currentUser.role}`);
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Logout functionality
+    document.getElementById('logout-btn').addEventListener('click', () => {
+      AuthService.signOut();
+      window.location.href = '/index.html';
+    });
+
+    // Load recent recipes
+    function loadRecentRecipes() {
+      const recipesList = document.getElementById('recent-recipes');
+      recipesList.innerHTML = '';
+      
+      // Get recipes from localStorage
+      const recipes = JSON.parse(localStorage.getItem('sourdough_recipes') || '[]');
+      
+      // Sort by creation date (newest first) and take top 3
+      const recentRecipes = recipes
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 3);
+      
+      if (recentRecipes.length === 0) {
+        recipesList.innerHTML = '<li>No recipes found</li>';
+        return;
+      }
+      
+      // Add recipes to list
+      recentRecipes.forEach(recipe => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="/recipes.html" style="text-decoration: none; color: inherit;">${recipe.title}</a>`;
+        recipesList.appendChild(li);
+      });
+    }
+    
+    // Load upcoming tasks
+    function loadUpcomingTasks() {
+      const tasksList = document.getElementById('upcoming-tasks');
+      tasksList.innerHTML = '';
+      
+      // Get tasks from localStorage
+      const tasks = JSON.parse(localStorage.getItem('sourdough_tasks') || '[]');
+      
+      // Get today's date
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      // Filter for pending tasks and sort by date/time
+      const upcomingTasks = tasks
+        .filter(task => task.status === 'pending')
+        .sort((a, b) => {
+          const dateA = new Date(`${a.date}T${a.time}`);
+          const dateB = new Date(`${b.date}T${b.time}`);
+          return dateA - dateB;
+        })
+        .slice(0, 3);
+      
+      if (upcomingTasks.length === 0) {
+        tasksList.innerHTML = '<li>No upcoming tasks</li>';
+        return;
+      }
+      
+      // Add tasks to list
+      upcomingTasks.forEach(task => {
+        const taskDate = new Date(task.date);
+        let dateText;
+        
+        if (taskDate.toDateString() === today.toDateString()) {
+          dateText = 'Today';
+        } else if (taskDate.toDateString() === new Date(today.getTime() + 86400000).toDateString()) {
+          dateText = 'Tomorrow';
+        } else {
+          dateText = taskDate.toLocaleDateString();
+        }
+        
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="/tasks.html" style="text-decoration: none; color: inherit;">${task.title} (${dateText}, ${task.time})</a>`;
+        tasksList.appendChild(li);
+      });
+    }
+    
+    // Load active starters
+    function loadActiveStarters() {
+      const startersList = document.getElementById('active-starters');
+      startersList.innerHTML = '';
+      
+      // Get starters and feedings from localStorage
+      const starters = JSON.parse(localStorage.getItem('sourdough_starters') || '[]');
+      const feedings = JSON.parse(localStorage.getItem('sourdough_feedings') || '[]');
+      
+      if (starters.length === 0) {
+        startersList.innerHTML = '<li>No starters found</li>';
+        return;
+      }
+      
+      // Get last feeding for each starter
+      starters.forEach(starter => {
+        const starterFeedings = feedings.filter(feeding => feeding.starterId === starter.id);
+        let lastFedText = 'Never fed';
+        
+        if (starterFeedings.length > 0) {
+          // Sort feedings by date (newest first)
+          const lastFeeding = starterFeedings.sort((a, b) => {
+            return new Date(`${b.date}T${b.time}`) - new Date(`${a.date}T${a.time}`);
+          })[0];
+          
+          // Format date
+          const feedingDate = new Date(`${lastFeeding.date}T${lastFeeding.time}`);
+          lastFedText = `Last fed: ${feedingDate.toLocaleDateString()} ${lastFeeding.time}`;
+        }
+        
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="/starters.html" style="text-decoration: none; color: inherit;">${starter.name} (${lastFedText})</a>`;
+        startersList.appendChild(li);
+      });
+    }
+    
+    // Load active timers
+    function loadActiveTimers() {
+      const timersList = document.getElementById('active-timers');
+      const noTimersMessage = document.getElementById('no-timers-message');
+      
+      // Clear list
+      timersList.innerHTML = '';
+      
+      // Get timers from localStorage
+      const timers = JSON.parse(localStorage.getItem('sourdough_timers') || '[]');
+      
+      // Filter for active timers
+      const activeTimers = timers.filter(timer => timer.remainingSeconds > 0);
+      
+      if (activeTimers.length === 0) {
+        noTimersMessage.style.display = 'block';
+        return;
+      }
+      
+      // Hide no timers message
+      noTimersMessage.style.display = 'none';
+      
+      // Add timers to list
+      activeTimers.forEach(timer => {
+        const li = document.createElement('li');
+        
+        // Format remaining time
+        const hours = Math.floor(timer.remainingSeconds / 3600);
+        const minutes = Math.floor((timer.remainingSeconds % 3600) / 60);
+        const seconds = timer.remainingSeconds % 60;
+        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        li.innerHTML = `<a href="/timers.html" style="text-decoration: none; color: inherit;">${timer.name} (${timeString})</a>`;
+        timersList.appendChild(li);
+      });
+    }
+    
+    // Load dashboard data
+    loadRecentRecipes();
+    loadUpcomingTasks();
+    loadActiveStarters();
+    loadActiveTimers();
+  </script>
+</body>
+</html>

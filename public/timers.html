@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timers - Sourdough Bakery</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/auth-service.js"></script>
+  <style>
+    .timer-card {
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      background-color: white;
+    }
+    .timer-display {
+      font-size: 2rem;
+      font-weight: bold;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .timer-controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .timer-progress {
+      height: 10px;
+      background-color: #e9ecef;
+      border-radius: 5px;
+      margin: 10px 0;
+      overflow: hidden;
+    }
+    .timer-progress-bar {
+      height: 100%;
+      background-color: #4C7A4C;
+      border-radius: 5px;
+      width: 0%;
+    }
+  </style>
+  <script>
+  // Timer Data Service
+  const TimerDataService = {
+    // Timers storage
+    timers: JSON.parse(localStorage.getItem('sourdough_timers') || '[]'),
+    
+    // Save timers to local storage
+    saveTimers() {
+      localStorage.setItem('sourdough_timers', JSON.stringify(this.timers));
+    },
+    
+    // Get all timers
+    getAllTimers() {
+      return this.timers;
+    },
+    
+    // Get timer by ID
+    getTimerById(id) {
+      return this.timers.find(timer => timer.id === id);
+    },
+    
+    // Create a new timer
+    createTimer(timerData) {
+      const newTimer = {
+        id: Date.now().toString(),
+        ...timerData,
+        createdAt: new Date().toISOString(),
+        createdBy: AuthService.getCurrentUser().id
+      };
+      
+      this.timers.push(newTimer);
+      this.saveTimers();
+      
+      return newTimer;
+    },
+    
+    // Update an existing timer
+    updateTimer(id, timerData) {
+      const index = this.timers.findIndex(timer => timer.id === id);
+      
+      if (index === -1) {
+        throw new Error('Timer not found');
+      }
+      
+      // Update timer
+      this.timers[index] = {
+        ...this.timers[index],
+        ...timerData,
+        updatedAt: new Date().toISOString()
+      };
+      
+      this.saveTimers();
+      
+      return this.timers[index];
+    },
+    
+    // Delete a timer
+    deleteTimer(id) {
+      const index = this.timers.findIndex(timer => timer.id === id);
+      
+      if (index === -1) {
+        throw new Error('Timer not found');
+      }
+      
+      // Remove timer
+      this.timers.splice(index, 1);
+      
+      this.saveTimers();
+      
+      return true;
+    }
+  };
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Sourdough Bakery Web App</h1>
+  </header>
+  
+  <nav>
+    <ul>
+      <li><a href="/dashboard.html">Dashboard</a></li>
+      <li><a href="/recipes.html">Recipes</a></li>
+      <li><a href="/tasks.html">Tasks</a></li>
+      <li><a href="/starters.html">Starters</a></li>
+      <li><a href="/timers.html">Timers</a></li>
+      <li><a href="/profile.html">Profile</a></li>
+      <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+    </ul>
+  </nav>
+  
+  <div class="container">
+    <div class="card">
+      <h2>Timers</h2>
+      <p>Set timers for various baking processes.</p>
+      <button id="add-timer-btn" class="btn">Add New Timer</button>
+    </div>
+    
+    <div id="timers-container">
+      <!-- Timers will be added here dynamically -->
+      <p id="no-timers-message">No active timers. Click "Add New Timer" to create one.</p>
+    </div>
+  </div>
+
+  <!-- Add Timer Modal -->
+  <div id="timer-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 1000;">
+    <div style="background-color: white; margin: 10% auto; padding: 20px; width: 80%; max-width: 500px; border-radius: 8px;">
+      <h2>Add New Timer</h2>
+      <form id="timer-form">
+        <div class="form-group">
+          <label for="timer-name">Timer Name</label>
+          <input type="text" id="timer-name" placeholder="e.g., Bulk Fermentation" required>
+        </div>
+        <div class="form-group">
+          <label for="timer-hours">Hours</label>
+          <input type="number" id="timer-hours" min="0" max="24" value="0" required>
+        </div>
+        <div class="form-group">
+          <label for="timer-minutes">Minutes</label>
+          <input type="number" id="timer-minutes" min="0" max="59" value="0" required>
+        </div>
+        <button type="submit" class="btn">Start Timer</button>
+        <button type="button" id="cancel-timer-btn" class="btn btn-secondary">Cancel</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Check if user is signed in
+    if (!AuthService.isSignedIn()) {
+      window.location.href = '/index.html';
+    }
+    
+    // Get current user
+    const currentUser = AuthService.getCurrentUser();
+    
+    // Show admin link if user is admin
+    if (currentUser.role === 'admin') {
+      document.getElementById('admin-link').style.display = 'block';
+    }
+    
+    // Timer functionality
+    let timers = [];
+    let timerIntervals = {};
+    
+    // Load timers from localStorage
+    function loadTimers() {
+      const savedTimers = localStorage.getItem('sourdough_timers');
+      if (savedTimers) {
+        timers = JSON.parse(savedTimers);
+        renderTimers();
+      }
+    }
+    
+    // Save timers to localStorage
+    function saveTimers() {
+      localStorage.setItem('sourdough_timers', JSON.stringify(timers));
+    }
+    
+    // Render timers
+    function renderTimers() {
+      const container = document.getElementById('timers-container');
+      const noTimersMessage = document.getElementById('no-timers-message');
+      
+      // Clear existing timers
+      container.innerHTML = '';
+      
+      // Show message if no timers
+      if (timers.length === 0) {
+        container.appendChild(noTimersMessage);
+        return;
+      }
+      
+      // Create timer elements
+      timers.forEach((timer, index) => {
+        const timerCard = document.createElement('div');
+        timerCard.className = 'timer-card';
+        timerCard.id = `timer-${index}`;
+        
+        const timerName = document.createElement('h3');
+        timerName.textContent = timer.name;
+        
+        const timerDisplay = document.createElement('div');
+        timerDisplay.className = 'timer-display';
+        timerDisplay.textContent = formatTime(timer.remainingSeconds);
+        
+        const timerProgress = document.createElement('div');
+        timerProgress.className = 'timer-progress';
+        
+        const timerProgressBar = document.createElement('div');
+        timerProgressBar.className = 'timer-progress-bar';
+        const progressPercent = 100 - (timer.remainingSeconds / timer.totalSeconds * 100);
+        timerProgressBar.style.width = `${progressPercent}%`;
+        
+        timerProgress.appendChild(timerProgressBar);
+        
+        const timerControls = document.createElement('div');
+        timerControls.className = 'timer-controls';
+        
+        const pauseResumeBtn = document.createElement('button');
+        pauseResumeBtn.className = 'btn';
+        pauseResumeBtn.textContent = timer.paused ? 'Resume' : 'Pause';
+        pauseResumeBtn.addEventListener('click', () => togglePauseTimer(index));
+        
+        const resetBtn = document.createElement('button');
+        resetBtn.className = 'btn';
+        resetBtn.textContent = 'Reset';
+        resetBtn.addEventListener('click', () => resetTimer(index));
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'btn btn-secondary';
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.addEventListener('click', () => deleteTimer(index));
+        
+        timerControls.appendChild(pauseResumeBtn);
+        timerControls.appendChild(resetBtn);
+        timerControls.appendChild(deleteBtn);
+        
+        timerCard.appendChild(timerName);
+        timerCard.appendChild(timerDisplay);
+        timerCard.appendChild(timerProgress);
+        timerCard.appendChild(timerControls);
+        
+        container.appendChild(timerCard);
+        
+        // Start timer interval if not paused
+        if (!timer.paused && timer.remainingSeconds > 0) {
+          startTimerInterval(index);
+        }
+      });
+    }
+    
+    // Format time as HH:MM:SS
+    function formatTime(seconds) {
+      const hours = Math.floor(seconds / 3600);
+      const minutes = Math.floor((seconds % 3600) / 60);
+      const secs = seconds % 60;
+      
+      return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+    
+    // Start timer interval
+    function startTimerInterval(index) {
+      // Clear existing interval if any
+      if (timerIntervals[index]) {
+        clearInterval(timerIntervals[index]);
+      }
+      
+      timerIntervals[index] = setInterval(() => {
+        if (timers[index].remainingSeconds > 0) {
+          timers[index].remainingSeconds--;
+          
+          // Update display
+          const timerDisplay = document.querySelector(`#timer-${index} .timer-display`);
+          if (timerDisplay) {
+            timerDisplay.textContent = formatTime(timers[index].remainingSeconds);
+          }
+          
+          // Update progress bar
+          const timerProgressBar = document.querySelector(`#timer-${index} .timer-progress-bar`);
+          if (timerProgressBar) {
+            const progressPercent = 100 - (timers[index].remainingSeconds / timers[index].totalSeconds * 100);
+            timerProgressBar.style.width = `${progressPercent}%`;
+          }
+          
+          // Save timers
+          saveTimers();
+        } else {
+          // Timer finished
+          clearInterval(timerIntervals[index]);
+          
+          // Play sound or show notification
+          alert(`Timer "${timers[index].name}" has finished!`);
+        }
+      }, 1000);
+    }
+    
+    // Toggle pause/resume timer
+    function togglePauseTimer(index) {
+      timers[index].paused = !timers[index].paused;
+      
+      if (timers[index].paused) {
+        clearInterval(timerIntervals[index]);
+      } else {
+        startTimerInterval(index);
+      }
+      
+      // Update button text
+      const pauseResumeBtn = document.querySelector(`#timer-${index} .timer-controls button:first-child`);
+      if (pauseResumeBtn) {
+        pauseResumeBtn.textContent = timers[index].paused ? 'Resume' : 'Pause';
+      }
+      
+      // Save timers
+      saveTimers();
+    }
+    
+    // Reset timer
+    function resetTimer(index) {
+      timers[index].remainingSeconds = timers[index].totalSeconds;
+      
+      // Update display
+      const timerDisplay = document.querySelector(`#timer-${index} .timer-display`);
+      if (timerDisplay) {
+        timerDisplay.textContent = formatTime(timers[index].remainingSeconds);
+      }
+      
+      // Update progress bar
+      const timerProgressBar = document.querySelector(`#timer-${index} .timer-progress-bar`);
+      if (timerProgressBar) {
+        timerProgressBar.style.width = '0%';
+      }
+      
+      // Save timers
+      saveTimers();
+    }
+    
+    // Delete timer
+    function deleteTimer(index) {
+      // Clear interval
+      if (timerIntervals[index]) {
+        clearInterval(timerIntervals[index]);
+        delete timerIntervals[index];
+      }
+      
+      // Remove timer
+      timers.splice(index, 1);
+      
+      // Save and render timers
+      saveTimers();
+      renderTimers();
+    }
+    
+    // Add timer button
+    document.getElementById('add-timer-btn').addEventListener('click', () => {
+      document.getElementById('timer-modal').style.display = 'block';
+    });
+    
+    // Cancel timer button
+    document.getElementById('cancel-timer-btn').addEventListener('click', () => {
+      document.getElementById('timer-modal').style.display = 'none';
+    });
+    
+    // Timer form submission
+    document.getElementById('timer-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('timer-name').value;
+      const hours = parseInt(document.getElementById('timer-hours').value) || 0;
+      const minutes = parseInt(document.getElementById('timer-minutes').value) || 0;
+      
+      // Calculate total seconds
+      const totalSeconds = (hours * 3600) + (minutes * 60);
+      
+      // Validate
+      if (totalSeconds <= 0) {
+        alert('Please set a time greater than zero.');
+        return;
+      }
+      
+      // Create timer
+      const timer = {
+        name,
+        totalSeconds,
+        remainingSeconds: totalSeconds,
+        paused: false
+      };
+      
+      // Add timer
+      timers.push(timer);
+      
+      // Save and render timers
+      saveTimers();
+      renderTimers();
+      
+      // Close modal and reset form
+      document.getElementById('timer-modal').style.display = 'none';
+      document.getElementById('timer-form').reset();
+    });
+    
+    // Load timers on page load
+    loadTimers();
+  </script>
+</body>
+</html>

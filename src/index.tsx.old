@@ -1,0 +1,124 @@
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#4C7A4C', // Dark green color as per UI screenshots
+    },
+    secondary: {
+      main: '#8d6e63', // Brown color as secondary
+    },
+    background: {
+      default: '#F5F5F5', // Light gray background
+    },
+    text: {
+      primary: '#333333', // Dark gray for main text
+    },
+    error: {
+      main: '#DC3545', // Red for high priority/errors
+    },
+    info: {
+      main: '#0D6EFD', // Blue for in progress
+    },
+    success: {
+      main: '#198754', // Green for completed
+    }
+  },
+  typography: {
+    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    h1: {
+      fontWeight: 500,
+      fontSize: '24px',
+    },
+    h2: {
+      fontWeight: 500,
+      fontSize: '20px',
+    },
+    h3: {
+      fontWeight: 500,
+      fontSize: '18px',
+    },
+    body1: {
+      fontSize: '16px',
+    },
+    body2: {
+      fontSize: '14px',
+    },
+    button: {
+      fontSize: '16px',
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 4,
+          textTransform: 'none',
+        },
+        contained: {
+          backgroundColor: '#4C7A4C',
+          color: '#FFFFFF',
+          '&:hover': {
+            backgroundColor: '#3c613c',
+          },
+        },
+        outlined: {
+          borderColor: '#4C7A4C',
+          color: '#4C7A4C',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          boxShadow: '0px 2px 4px rgba(0,0,0,0.1)',
+        },
+      },
+    },
+    MuiAppBar: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#4C7A4C',
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          padding: '16px',
+          backgroundColor: '#FFFFFF',
+        },
+      },
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          marginBottom: '16px',
+        },
+      },
+    },
+  },
+});
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>
+);
+
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
