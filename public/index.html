@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sourdough Bakery</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="/js/api-service.js"></script>
 </head>
 <body>
   <header>
@@ -35,175 +36,24 @@
         <button type="submit" class="btn btn-primary">Sign In</button>
       </form>
       <p>Don't have an account? <a href="/signup.html">Sign Up</a></p>
+      
+      <div style="margin-top: 20px; padding: 10px; background-color: #f8f9fa; border-radius: 4px;">
+        <h4 style="margin-top: 0;">Demo Accounts:</h4>
+        <ul style="margin-bottom: 0;">
+          <li><strong>Admin:</strong> admin@example.com / Admin123!</li>
+          <li><strong>Manager:</strong> manager@example.com / Manager123!</li>
+          <li><strong>Baker:</strong> baker@example.com / Baker123!</li>
+          <li><strong>Trainee:</strong> trainee@example.com / Trainee123!</li>
+          <li><strong>Ahmed:</strong> ahmed@fromniu.com / banak123</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <script>
-    // Local Authentication Service
-    const AuthService = {
-      // User storage
-      users: JSON.parse(localStorage.getItem('sourdough_users') || '[]'),
-      
-      // Current user
-      currentUser: JSON.parse(localStorage.getItem('sourdough_current_user') || 'null'),
-      
-      // Save users to local storage
-      saveUsers() {
-        localStorage.setItem('sourdough_users', JSON.stringify(this.users));
-      },
-      
-      // Save current user to local storage
-      saveCurrentUser() {
-        localStorage.setItem('sourdough_current_user', JSON.stringify(this.currentUser));
-      },
-      
-      // Create a new user
-      createUser(email, password, displayName, role = 'trainee') {
-        // Check if user already exists
-        if (this.users.find(user => user.email === email)) {
-          throw new Error('User with this email already exists');
-        }
-        
-        // Create user object
-        const user = {
-          id: Date.now().toString(),
-          email,
-          password,
-          displayName,
-          role,
-          emailVerified: false,
-          createdAt: new Date().toISOString()
-        };
-        
-        // Add to users array
-        this.users.push(user);
-        this.saveUsers();
-        
-        return user;
-      },
-      
-      // Login user
-      login(email, password, rememberMe = false) {
-        // Find user
-        const user = this.users.find(user => user.email === email);
-        
-        // Check if user exists and password matches
-        if (!user || user.password !== password) {
-          throw new Error('Invalid email or password');
-        }
-        
-        // Set current user
-        this.currentUser = {
-          id: user.id,
-          email: user.email,
-          displayName: user.displayName,
-          role: user.role,
-          emailVerified: user.emailVerified
-        };
-        
-        // Save current user
-        this.saveCurrentUser();
-        
-        // Save remember me preference
-        if (rememberMe) {
-          localStorage.setItem('sourdough_remember_me', 'true');
-        } else {
-          localStorage.removeItem('sourdough_remember_me');
-        }
-        
-        return this.currentUser;
-      },
-      
-      // Logout user
-      logout() {
-        this.currentUser = null;
-        localStorage.removeItem('sourdough_current_user');
-        localStorage.removeItem('sourdough_remember_me');
-      },
-      
-      // Get current user
-      getCurrentUser() {
-        return this.currentUser;
-      },
-      
-      // Check if user is logged in
-      isLoggedIn() {
-        return this.currentUser !== null;
-      },
-      
-      // Check if user has permission
-      hasPermission(permission) {
-        if (!this.currentUser) return false;
-        
-        const role = this.currentUser.role;
-        
-        // Define permissions for each role
-        const permissions = {
-          admin: [
-            'manage_users', 'manage_recipes', 'manage_tasks', 
-            'manage_starters', 'manage_timers', 'view_reports',
-            'edit_recipes', 'edit_tasks', 'edit_starters',
-            'use_recipes', 'use_tasks', 'use_starters', 'use_timers'
-          ],
-          manager: [
-            'manage_recipes', 'manage_tasks', 'manage_starters',
-            'edit_recipes', 'edit_tasks', 'edit_starters',
-            'use_recipes', 'use_tasks', 'use_starters', 'use_timers',
-            'view_reports'
-          ],
-          baker: [
-            'edit_tasks', 'edit_starters',
-            'use_recipes', 'use_tasks', 'use_starters', 'use_timers'
-          ],
-          trainee: [
-            'use_recipes', 'use_tasks', 'use_starters', 'use_timers'
-          ]
-        };
-        
-        return permissions[role]?.includes(permission) || false;
-      },
-      
-      // Initialize demo accounts
-      initDemoAccounts() {
-        // Check if demo accounts already exist
-        const adminExists = this.users.some(user => user.email === 'admin@example.com');
-        
-        if (!adminExists) {
-          // Create demo accounts
-          const demoAccounts = [
-            { email: 'admin@example.com', password: 'password123', displayName: 'Admin User', role: 'admin' },
-            { email: 'manager@example.com', password: 'password123', displayName: 'Manager User', role: 'manager' },
-            { email: 'baker@example.com', password: 'password123', displayName: 'Baker User', role: 'baker' },
-            { email: 'trainee@example.com', password: 'password123', displayName: 'Trainee User', role: 'trainee' }
-          ];
-          
-          // Add demo accounts to users array
-          demoAccounts.forEach(account => {
-            // Skip if user already exists
-            if (!this.users.some(user => user.email === account.email)) {
-              this.users.push({
-                id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
-                email: account.email,
-                password: account.password,
-                displayName: account.displayName,
-                role: account.role,
-                emailVerified: true,
-                createdAt: new Date().toISOString()
-              });
-            }
-          });
-          
-          this.saveUsers();
-        }
-      }
-    };
-
-    // Initialize demo accounts
-    AuthService.initDemoAccounts();
-
     document.addEventListener('DOMContentLoaded', function() {
       // Check if user is already logged in
-      if (AuthService.isLoggedIn()) {
+      if (ApiService.isLoggedIn()) {
         window.location.href = '/dashboard.html';
         return;
       }
@@ -227,19 +77,18 @@
       const errorMessage = document.getElementById('error-message');
       const successMessage = document.getElementById('success-message');
       
-      loginForm.addEventListener('submit', function(e) {
+      loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
-        const rememberMe = document.getElementById('remember-me').checked;
         
         try {
           errorMessage.style.display = 'none';
           successMessage.style.display = 'none';
           
-          // Try to login
-          const user = AuthService.login(email, password, rememberMe);
+          // Try to login using API
+          await ApiService.login(email, password);
           
           // Show success message
           successMessage.textContent = 'Login successful! Redirecting...';
@@ -251,28 +100,29 @@
           }, 1000);
         } catch (error) {
           // Show error message
-          errorMessage.textContent = error.message;
+          errorMessage.textContent = error.message || 'Login failed. Please check your credentials.';
           errorMessage.style.display = 'block';
         }
       });
       
       // Demo account buttons
       const demoAccounts = [
-        { email: 'admin@example.com', password: 'password123', role: 'admin' },
-        { email: 'manager@example.com', password: 'password123', role: 'manager' },
-        { email: 'baker@example.com', password: 'password123', role: 'baker' },
-        { email: 'trainee@example.com', password: 'password123', role: 'trainee' }
+        { email: 'admin@example.com', password: 'Admin123!', role: 'admin' },
+        { email: 'manager@example.com', password: 'Manager123!', role: 'manager' },
+        { email: 'baker@example.com', password: 'Baker123!', role: 'baker' },
+        { email: 'trainee@example.com', password: 'Trainee123!', role: 'trainee' },
+        { email: 'ahmed@fromniu.com', password: 'banak123', role: 'admin' }
       ];
       
       // Create demo account buttons
       const formGroup = document.createElement('div');
-      formGroup.innerHTML = '<p>Demo Accounts:</p>';
+      formGroup.innerHTML = '<p>Quick Login:</p>';
       
       demoAccounts.forEach(account => {
         const button = document.createElement('button');
         button.type = 'button';
-        button.className = 'btn';
-        button.textContent = account.role.charAt(0).toUpperCase() + account.role.slice(1);
+        button.className = 'btn btn-sm';
+        button.textContent = account.role === 'admin' && account.email.includes('ahmed') ? 'Ahmed' : account.role.charAt(0).toUpperCase() + account.role.slice(1);
         button.addEventListener('click', () => {
           document.getElementById('email').value = account.email;
           document.getElementById('password').value = account.password;

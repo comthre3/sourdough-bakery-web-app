@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Sourdough Bakery</title>
   <link rel="stylesheet" href="/css/styles.css">
-  <script src="/js/auth-service.js"></script>
+  <script src="/js/api-service.js"></script>
 </head>
 <body>
   <header>
@@ -22,239 +22,81 @@
       <li><a href="/ingredients.html">Ingredients</a></li>
       <li><a href="/profile.html">Profile</a></li>
       <li id="admin-link" style="display: none;"><a href="/admin.html">Admin Panel</a></li>
+      <li><a href="#" id="logout-link">Logout</a></li>
     </ul>
   </nav>
   
   <div class="container">
     <div class="card">
       <h2>Dashboard</h2>
-      <p>Welcome, <span id="user-name">User</span>! <span id="user-role" class="badge">Role</span></p>
-      <button id="logout-btn" class="btn btn-secondary">Logout</button>
-    </div>
-    
-    <div class="dashboard-grid">
-      <div class="dashboard-card">
-        <h3>Recent Recipes</h3>
-        <ul id="recent-recipes-list">
-          <!-- Recent recipes will be loaded here dynamically -->
-        </ul>
-        <a href="/recipes.html" class="btn">View All Recipes</a>
-      </div>
+      <div id="welcome-message"></div>
       
-      <div class="dashboard-card">
-        <h3>Upcoming Tasks</h3>
-        <ul id="upcoming-tasks-list">
-          <!-- Upcoming tasks will be loaded here dynamically -->
-        </ul>
-        <a href="/tasks.html" class="btn">View All Tasks</a>
-      </div>
-      
-      <div class="dashboard-card">
-        <h3>Active Starters</h3>
-        <ul id="active-starters-list">
-          <!-- Active starters will be loaded here dynamically -->
-        </ul>
-        <a href="/starters.html" class="btn">View All Starters</a>
-      </div>
-      
-      <div class="dashboard-card">
-        <h3>Active Timers</h3>
-        <ul id="active-timers-list">
-          <!-- Active timers will be loaded here dynamically -->
-        </ul>
-        <a href="/timers.html" class="btn">Set New Timer</a>
+      <div class="dashboard-grid">
+        <div class="dashboard-item">
+          <h3>Recipes</h3>
+          <p id="recipe-count">Loading...</p>
+          <a href="/recipes.html" class="btn">View Recipes</a>
+        </div>
+        
+        <div class="dashboard-item">
+          <h3>Tasks</h3>
+          <p id="task-count">Loading...</p>
+          <a href="/tasks.html" class="btn">View Tasks</a>
+        </div>
+        
+        <div class="dashboard-item">
+          <h3>Starters</h3>
+          <p id="starter-count">Loading...</p>
+          <a href="/starters.html" class="btn">View Starters</a>
+        </div>
+        
+        <div class="dashboard-item">
+          <h3>Timers</h3>
+          <p id="timer-count">Loading...</p>
+          <a href="/timers.html" class="btn">View Timers</a>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    // Check if user is signed in
-    if (!AuthService.isSignedIn()) {
-      window.location.href = '/index.html';
-    }
-    
-    // Get current user
-    const currentUser = AuthService.getCurrentUser();
-    
-    // Set user name and role
-    document.getElementById('user-name').textContent = currentUser.displayName;
-    document.getElementById('user-role').textContent = currentUser.role.toUpperCase();
-    
-    // Show admin link if user is admin
-    if (currentUser.role === 'admin') {
-      document.getElementById('admin-link').style.display = 'block';
-    }
-    
-    // Logout button
-    document.getElementById('logout-btn').addEventListener('click', () => {
-      AuthService.signOut();
-      window.location.href = '/index.html';
+    document.addEventListener('DOMContentLoaded', async function() {
+      // Check if user is logged in
+      if (!ApiService.isLoggedIn()) {
+        window.location.href = '/index.html';
+        return;
+      }
+      
+      // Get current user
+      const currentUser = ApiService.getCurrentUser();
+      
+      // Show admin link if user is admin
+      if (currentUser.role === 'admin') {
+        document.getElementById('admin-link').style.display = 'block';
+      }
+      
+      // Set welcome message
+      document.getElementById('welcome-message').textContent = `Welcome, ${currentUser.displayName || currentUser.email}!`;
+      
+      // Handle logout
+      document.getElementById('logout-link').addEventListener('click', function(e) {
+        e.preventDefault();
+        ApiService.logout();
+      });
+      
+      // Load recipe count
+      try {
+        const recipes = await ApiService.getRecipes();
+        document.getElementById('recipe-count').textContent = `${recipes.length} recipes`;
+      } catch (error) {
+        document.getElementById('recipe-count').textContent = 'Unable to load recipes';
+      }
+      
+      // For now, just show placeholder counts for other items
+      document.getElementById('task-count').textContent = 'No tasks';
+      document.getElementById('starter-count').textContent = 'No starters';
+      document.getElementById('timer-count').textContent = 'No timers';
     });
-    
-    // Load recent recipes
-    function loadRecentRecipes() {
-      const recipesList = document.getElementById('recent-recipes-list');
-      
-      // Get recipes from localStorage
-      const recipes = JSON.parse(localStorage.getItem('sourdough_recipes') || '[]');
-      
-      // Sort by created date (newest first)
-      recipes.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-      
-      // Take only the first 3
-      const recentRecipes = recipes.slice(0, 3);
-      
-      // Clear list
-      recipesList.innerHTML = '';
-      
-      // Add recipes to list
-      recentRecipes.forEach(recipe => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="/recipes.html" style="text-decoration: none; color: inherit;">${recipe.title}</a>`;
-        recipesList.appendChild(li);
-      });
-      
-      // If no recipes, show message
-      if (recentRecipes.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No recipes yet';
-        recipesList.appendChild(li);
-      }
-    }
-    
-    // Load upcoming tasks
-    function loadUpcomingTasks() {
-      const tasksList = document.getElementById('upcoming-tasks-list');
-      
-      // Get tasks from localStorage
-      const tasks = JSON.parse(localStorage.getItem('sourdough_tasks') || '[]');
-      
-      // Filter incomplete tasks
-      const incompleteTasks = tasks.filter(task => !task.completed);
-      
-      // Sort by date (soonest first)
-      incompleteTasks.sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-      
-      // Take only the first 3
-      const upcomingTasks = incompleteTasks.slice(0, 3);
-      
-      // Clear list
-      tasksList.innerHTML = '';
-      
-      // Add tasks to list
-      upcomingTasks.forEach(task => {
-        const taskDate = new Date(task.date + 'T' + task.time);
-        const today = new Date();
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        
-        let dateText = '';
-        if (taskDate.toDateString() === today.toDateString()) {
-          dateText = 'Today';
-        } else if (taskDate.toDateString() === tomorrow.toDateString()) {
-          dateText = 'Tomorrow';
-        } else {
-          dateText = taskDate.toLocaleDateString();
-        }
-        
-        const timeText = taskDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="/tasks.html" style="text-decoration: none; color: inherit;">${task.title} (${dateText}, ${timeText})</a>`;
-        tasksList.appendChild(li);
-      });
-      
-      // If no tasks, show message
-      if (upcomingTasks.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No upcoming tasks';
-        tasksList.appendChild(li);
-      }
-    }
-    
-    // Load active starters
-    function loadActiveStarters() {
-      const startersList = document.getElementById('active-starters-list');
-      
-      // Get starters from localStorage
-      const starters = JSON.parse(localStorage.getItem('sourdough_starters') || '[]');
-      
-      // Get feedings from localStorage
-      const feedings = JSON.parse(localStorage.getItem('sourdough_feedings') || '[]');
-      
-      // Clear list
-      startersList.innerHTML = '';
-      
-      // Add starters to list
-      starters.forEach(starter => {
-        // Get last feeding for this starter
-        const starterFeedings = feedings.filter(feeding => feeding.starterId === starter.id);
-        starterFeedings.sort((a, b) => new Date(b.date + 'T' + b.time) - new Date(a.date + 'T' + a.time));
-        
-        const lastFeeding = starterFeedings[0];
-        
-        const li = document.createElement('li');
-        
-        if (lastFeeding) {
-          const feedingDate = new Date(lastFeeding.date + 'T' + lastFeeding.time);
-          const lastFedText = feedingDate.toLocaleDateString() + ' ' + feedingDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          
-          li.innerHTML = `<a href="/starters.html" style="text-decoration: none; color: inherit;">${starter.name} (Last fed: ${lastFedText})</a>`;
-        } else {
-          li.innerHTML = `<a href="/starters.html" style="text-decoration: none; color: inherit;">${starter.name} (No feeding recorded)</a>`;
-        }
-        
-        startersList.appendChild(li);
-      });
-      
-      // If no starters, show message
-      if (starters.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No starters yet';
-        startersList.appendChild(li);
-      }
-    }
-    
-    // Load active timers
-    function loadActiveTimers() {
-      const timersList = document.getElementById('active-timers-list');
-      
-      // Get timers from localStorage
-      const timers = JSON.parse(localStorage.getItem('sourdough_timers') || '[]');
-      
-      // Filter active timers
-      const activeTimers = timers.filter(timer => timer.active);
-      
-      // Clear list
-      timersList.innerHTML = '';
-      
-      // Add timers to list
-      activeTimers.forEach(timer => {
-        const li = document.createElement('li');
-        
-        // Format time remaining
-        const hours = Math.floor(timer.remainingSeconds / 3600);
-        const minutes = Math.floor((timer.remainingSeconds % 3600) / 60);
-        const seconds = timer.remainingSeconds % 60;
-        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        
-        li.innerHTML = `<a href="/timers.html" style="text-decoration: none; color: inherit;">${timer.name} (${timeString})</a>`;
-        timersList.appendChild(li);
-      });
-      
-      // If no timers, show message
-      if (activeTimers.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No active timers';
-        timersList.appendChild(li);
-      }
-    }
-    
-    // Load dashboard data
-    loadRecentRecipes();
-    loadUpcomingTasks();
-    loadActiveStarters();
-    loadActiveTimers();
   </script>
 </body>
 </html>

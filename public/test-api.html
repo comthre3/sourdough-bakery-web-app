@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Test</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 5px;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #f9f9f9;
+    }
+    .success {
+      color: green;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>API Connection Test</h1>
+  <div>
+    <button id="test-api">Test API Connection</button>
+    <button id="test-login">Test Login API</button>
+  </div>
+  <div id="result" class="result">Click a button to test the API connection</div>
+
+  <script>
+    document.getElementById('test-api') .addEventListener('click', async () => {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = 'Testing API connection...';
+      resultDiv.className = 'result';
+      
+      try {
+        const response = await fetch('/api/test');
+        const data = await response.json();
+        resultDiv.innerHTML = `<p class="success">Success! API server responded: ${JSON.stringify(data)}</p>`;
+      } catch (error) {
+        resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+      }
+    });
+    
+    document.getElementById('test-login').addEventListener('click', async () => {
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML = 'Testing login API...';
+      resultDiv.className = 'result';
+      
+      try {
+        const response = await fetch('/api/users/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: 'admin@example.com',
+            password: 'Admin123!'
+          })
+        });
+        
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Login failed');
+        }
+        
+        const data = await response.json();
+        resultDiv.innerHTML = `<p class="success">Login successful! User data: ${JSON.stringify(data)}</p>`;
+      } catch (error) {
+        resultDiv.innerHTML = `<p class="error">Login error: ${error.message}</p>`;
+      }
+    });
+  </script>
+</body>
+</html>

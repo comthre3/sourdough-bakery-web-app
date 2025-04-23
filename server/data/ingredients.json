@@ -1,0 +1,2535 @@
+[
+  {
+    "id": "17454032958291",
+    "name": "Unsalted Butter",
+    "category": "wet",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 50,
+    "nutritionalInfo": {
+      "calories": 747,
+      "protein": 0.3,
+      "carbs": 0.8,
+      "fat": 82.5
+    },
+    "createdAt": "2025-04-23T10:14:55.829Z",
+    "updatedAt": "2025-04-23T10:14:55.829Z"
+  },
+  {
+    "id": "17454032958302",
+    "name": "Sugar",
+    "category": "dry",
+    "price": 0.0003,
+    "unit": "gram",
+    "packageSize": 50000,
+    "packagePrice": 15,
+    "nutritionalInfo": {
+      "calories": 387,
+      "protein": 0,
+      "carbs": 99.8,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958303",
+    "name": "Edan Cheese Ball",
+    "category": "dry",
+    "price": 0.0034,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3.4,
+    "nutritionalInfo": {
+      "calories": 356,
+      "protein": 25,
+      "carbs": 1.3,
+      "fat": 28
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958304",
+    "name": "Buffalo Mozzarella",
+    "category": "dry",
+    "price": 0.0089,
+    "unit": "gram",
+    "packageSize": 125,
+    "packagePrice": 1.11,
+    "nutritionalInfo": {
+      "calories": 280,
+      "protein": 17,
+      "carbs": 2,
+      "fat": 22
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958305",
+    "name": "Sesame",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 15000,
+    "packagePrice": 15,
+    "nutritionalInfo": {
+      "calories": 573,
+      "protein": 17.7,
+      "carbs": 23.4,
+      "fat": 49.7
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958306",
+    "name": "Sundried Tomato",
+    "category": "dry",
+    "price": 0.004,
+    "unit": "gram",
+    "packageSize": 1550,
+    "packagePrice": 6.25,
+    "nutritionalInfo": {
+      "calories": 258,
+      "protein": 14.1,
+      "carbs": 43.2,
+      "fat": 3
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958307",
+    "name": "Choco Sticks",
+    "category": "dry",
+    "price": 0.0043,
+    "unit": "gram",
+    "packageSize": 1600,
+    "packagePrice": 6.95,
+    "nutritionalInfo": {
+      "calories": 500,
+      "protein": 6,
+      "carbs": 59,
+      "fat": 25
+    },
+    "createdAt": "2025-04-23T10:14:55.830Z",
+    "updatedAt": "2025-04-23T10:14:55.830Z"
+  },
+  {
+    "id": "17454032958318",
+    "name": "Brown Sugar",
+    "category": "dry",
+    "price": 0.0012,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 30,
+    "nutritionalInfo": {
+      "calories": 379,
+      "protein": 0.6,
+      "carbs": 94.2,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "17454032958319",
+    "name": "Frozen Yeast (20 * 500g)",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 10000,
+    "packagePrice": 15,
+    "nutritionalInfo": {
+      "calories": 105,
+      "protein": 14,
+      "carbs": 20,
+      "fat": 1
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583110",
+    "name": "Mozzarella Block",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2.95,
+    "nutritionalInfo": {
+      "calories": 335,
+      "protein": 15,
+      "carbs": 10,
+      "fat": 26
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583111",
+    "name": "Butter Sheet",
+    "category": "wet",
+    "price": 0.0042,
+    "unit": "gram",
+    "packageSize": 10000,
+    "packagePrice": 42,
+    "nutritionalInfo": {
+      "calories": 743,
+      "protein": 0.6,
+      "carbs": 0.6,
+      "fat": 82
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583112",
+    "name": "Pistachio Paste",
+    "category": "dry",
+    "price": 0.0042,
+    "unit": "gram",
+    "packageSize": 5000,
+    "packagePrice": 21,
+    "nutritionalInfo": {
+      "calories": 589,
+      "protein": 20.2,
+      "carbs": 28.3,
+      "fat": 45.4
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583113",
+    "name": "Choco Paste",
+    "category": "dry",
+    "price": 0.0024,
+    "unit": "gram",
+    "packageSize": 5000,
+    "packagePrice": 12,
+    "nutritionalInfo": {
+      "calories": 545,
+      "protein": 6.3,
+      "carbs": 58.4,
+      "fat": 31.8
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583114",
+    "name": "Pumkin Seed",
+    "category": "dry",
+    "price": 0.0025,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2.5,
+    "nutritionalInfo": {
+      "calories": 559,
+      "protein": 30.2,
+      "carbs": 10.7,
+      "fat": 49.1
+    },
+    "createdAt": "2025-04-23T10:14:55.831Z",
+    "updatedAt": "2025-04-23T10:14:55.831Z"
+  },
+  {
+    "id": "174540329583215",
+    "name": "Sunflower Seeds",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2,
+    "nutritionalInfo": {
+      "calories": 584,
+      "protein": 20.8,
+      "carbs": 20,
+      "fat": 51.5
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583216",
+    "name": "Flax Seeds",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 534,
+      "protein": 18.3,
+      "carbs": 28.9,
+      "fat": 42.2
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583217",
+    "name": "Salt",
+    "category": "dry",
+    "price": 0.0001,
+    "unit": "gram",
+    "packageSize": 20000,
+    "packagePrice": 1.75,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583218",
+    "name": "Semolina Coarse",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 15000,
+    "packagePrice": 5.5,
+    "nutritionalInfo": {
+      "calories": 348,
+      "protein": 10.5,
+      "carbs": 70,
+      "fat": 1.1
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583219",
+    "name": "Olive Oil",
+    "category": "wet",
+    "price": 0.0014,
+    "unit": "gram",
+    "packageSize": 4550,
+    "packagePrice": 6.5,
+    "nutritionalInfo": {
+      "calories": 822,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 14
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583220",
+    "name": "Wheat Flour T55",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 12,
+    "nutritionalInfo": {
+      "calories": 335,
+      "protein": 10.3,
+      "carbs": 69,
+      "fat": 1.1
+    },
+    "createdAt": "2025-04-23T10:14:55.832Z",
+    "updatedAt": "2025-04-23T10:14:55.832Z"
+  },
+  {
+    "id": "174540329583321",
+    "name": "Kalamata Olive Black",
+    "category": "dry",
+    "price": 0.0028,
+    "unit": "gram",
+    "packageSize": 5000,
+    "packagePrice": 14,
+    "nutritionalInfo": {
+      "calories": 239,
+      "protein": 1.8,
+      "carbs": 4.1,
+      "fat": 23
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583322",
+    "name": "Oats",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 392.5,
+      "protein": 13,
+      "carbs": 65,
+      "fat": 8
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583323",
+    "name": "Almond Blanced Sliced",
+    "category": "dry",
+    "price": 0.0035,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3.5,
+    "nutritionalInfo": {
+      "calories": 575,
+      "protein": 21,
+      "carbs": 21.6,
+      "fat": 49.9
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583324",
+    "name": "Multicereal Flour",
+    "category": "dry",
+    "price": 0.0012,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 31,
+    "nutritionalInfo": {
+      "calories": 340,
+      "protein": 13,
+      "carbs": 68,
+      "fat": 2.5
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583325",
+    "name": "Dark Compound Block",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 2500,
+    "packagePrice": 3.65,
+    "nutritionalInfo": {
+      "calories": 545,
+      "protein": 5.8,
+      "carbs": 59.4,
+      "fat": 31
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583326",
+    "name": "Black Sesame",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2,
+    "nutritionalInfo": {
+      "calories": 573,
+      "protein": 17.7,
+      "carbs": 23.4,
+      "fat": 49.7
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583327",
+    "name": "Cream Cheese",
+    "category": "dry",
+    "price": 0.0023,
+    "unit": "gram",
+    "packageSize": 12000,
+    "packagePrice": 28,
+    "nutritionalInfo": {
+      "calories": 279,
+      "protein": 7,
+      "carbs": 3.1,
+      "fat": 27
+    },
+    "createdAt": "2025-04-23T10:14:55.833Z",
+    "updatedAt": "2025-04-23T10:14:55.833Z"
+  },
+  {
+    "id": "174540329583428",
+    "name": "Cinnamon Powder",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 247,
+      "protein": 4,
+      "carbs": 81,
+      "fat": 1.2
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583429",
+    "name": "Egg",
+    "category": "dry",
+    "price": 0.0009,
+    "unit": "gram",
+    "packageSize": 18000,
+    "packagePrice": 16.2,
+    "nutritionalInfo": {
+      "calories": 143,
+      "protein": 12.6,
+      "carbs": 0.7,
+      "fat": 9.5
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583430",
+    "name": "Milk",
+    "category": "wet",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 12000,
+    "packagePrice": 4.2,
+    "nutritionalInfo": {
+      "calories": 60.8,
+      "protein": 3.2,
+      "carbs": 4.8,
+      "fat": 3.2
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583431",
+    "name": "Potato Flour",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 357,
+      "protein": 6.9,
+      "carbs": 83.1,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583432",
+    "name": "Zatar Powder",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 280,
+      "protein": 10,
+      "carbs": 30,
+      "fat": 20
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583433",
+    "name": "Red Lentil",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.5,
+    "nutritionalInfo": {
+      "calories": 352,
+      "protein": 24.6,
+      "carbs": 63.2,
+      "fat": 1.1
+    },
+    "createdAt": "2025-04-23T10:14:55.834Z",
+    "updatedAt": "2025-04-23T10:14:55.834Z"
+  },
+  {
+    "id": "174540329583534",
+    "name": "Roasted Sesame",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 573,
+      "protein": 17.7,
+      "carbs": 23.4,
+      "fat": 49.7
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583535",
+    "name": "Emental Cheese",
+    "category": "dry",
+    "price": 0.0028,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2.75,
+    "nutritionalInfo": {
+      "calories": 377,
+      "protein": 29,
+      "carbs": 0.1,
+      "fat": 29
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583536",
+    "name": "Icing Sugar",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 25,
+    "nutritionalInfo": {
+      "calories": 389,
+      "protein": 0,
+      "carbs": 99.9,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583537",
+    "name": "Coco Power",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 50,
+    "nutritionalInfo": {
+      "calories": 228,
+      "protein": 19.6,
+      "carbs": 57.9,
+      "fat": 13.7
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583538",
+    "name": "Vennilla Essence",
+    "category": "dry",
+    "price": 0.0055,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 5.5,
+    "nutritionalInfo": {
+      "calories": 289,
+      "protein": 0,
+      "carbs": 72.5,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583539",
+    "name": "Jam",
+    "category": "dry",
+    "price": 0.0009,
+    "unit": "gram",
+    "packageSize": 12500,
+    "packagePrice": 11,
+    "nutritionalInfo": {
+      "calories": 246,
+      "protein": 0.033,
+      "carbs": 66.7,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583540",
+    "name": "Peanut butter",
+    "category": "wet",
+    "price": 0.0028,
+    "unit": "gram",
+    "packageSize": 2000,
+    "packagePrice": 5.5,
+    "nutritionalInfo": {
+      "calories": 570,
+      "protein": 22,
+      "carbs": 26,
+      "fat": 47
+    },
+    "createdAt": "2025-04-23T10:14:55.835Z",
+    "updatedAt": "2025-04-23T10:14:55.835Z"
+  },
+  {
+    "id": "174540329583641",
+    "name": "Pine nuts",
+    "category": "dry",
+    "price": 0.016,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 16,
+    "nutritionalInfo": {
+      "calories": 673,
+      "protein": 13.7,
+      "carbs": 13.1,
+      "fat": 68.4
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583642",
+    "name": "Feta cheese",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 2000,
+    "packagePrice": 6,
+    "nutritionalInfo": {
+      "calories": 264,
+      "protein": 14.2,
+      "carbs": 4.1,
+      "fat": 21.3
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583643",
+    "name": "Molasses",
+    "category": "dry",
+    "price": 0.0042,
+    "unit": "gram",
+    "packageSize": 300,
+    "packagePrice": 1.25,
+    "nutritionalInfo": {
+      "calories": 250,
+      "protein": 0,
+      "carbs": 65,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583644",
+    "name": "Black Pepper Powder",
+    "category": "dry",
+    "price": 0.0062,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 6.2,
+    "nutritionalInfo": {
+      "calories": 251,
+      "protein": 10.4,
+      "carbs": 63.9,
+      "fat": 3.3
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583645",
+    "name": "Sumac",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 178,
+      "protein": 3.8,
+      "carbs": 38.8,
+      "fat": 4.2
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583646",
+    "name": "Almond Powder",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3,
+    "nutritionalInfo": {
+      "calories": 575,
+      "protein": 21,
+      "carbs": 21.6,
+      "fat": 49.9
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583647",
+    "name": "Thahina Sauce",
+    "category": "dry",
+    "price": 0.0019,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.85,
+    "nutritionalInfo": {
+      "calories": 630,
+      "protein": 30,
+      "carbs": 18,
+      "fat": 50
+    },
+    "createdAt": "2025-04-23T10:14:55.836Z",
+    "updatedAt": "2025-04-23T10:14:55.836Z"
+  },
+  {
+    "id": "174540329583748",
+    "name": "BBQ Sauce",
+    "category": "dry",
+    "price": 0.0011,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 0.57,
+    "nutritionalInfo": {
+      "calories": 172,
+      "protein": 1.5,
+      "carbs": 33.3,
+      "fat": 3.3
+    },
+    "createdAt": "2025-04-23T10:14:55.837Z",
+    "updatedAt": "2025-04-23T10:14:55.837Z"
+  },
+  {
+    "id": "174540329583749",
+    "name": "Tuna",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 184,
+      "protein": 25.5,
+      "carbs": 0,
+      "fat": 8
+    },
+    "createdAt": "2025-04-23T10:14:55.837Z",
+    "updatedAt": "2025-04-23T10:14:55.837Z"
+  },
+  {
+    "id": "174540329583750",
+    "name": "Mayonnaise",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 3500,
+    "packagePrice": 3.5,
+    "nutritionalInfo": {
+      "calories": 613.9,
+      "protein": 0.71,
+      "carbs": 2.86,
+      "fat": 66.3
+    },
+    "createdAt": "2025-04-23T10:14:55.837Z",
+    "updatedAt": "2025-04-23T10:14:55.837Z"
+  },
+  {
+    "id": "174540329583751",
+    "name": "Parmesan Cheese",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 5,
+    "nutritionalInfo": {
+      "calories": 418,
+      "protein": 37,
+      "carbs": 21,
+      "fat": 30
+    },
+    "createdAt": "2025-04-23T10:14:55.837Z",
+    "updatedAt": "2025-04-23T10:14:55.837Z"
+  },
+  {
+    "id": "174540329583752",
+    "name": "Hallomi Cheese",
+    "category": "dry",
+    "price": 0.0033,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 1.65,
+    "nutritionalInfo": {
+      "calories": 324,
+      "protein": 22,
+      "carbs": 3,
+      "fat": 25
+    },
+    "createdAt": "2025-04-23T10:14:55.837Z",
+    "updatedAt": "2025-04-23T10:14:55.837Z"
+  },
+  {
+    "id": "174540329583853",
+    "name": "Rising Flour",
+    "category": "dry",
+    "price": 0.0008,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 364,
+      "protein": 10.3,
+      "carbs": 76.3,
+      "fat": 1
+    },
+    "createdAt": "2025-04-23T10:14:55.838Z",
+    "updatedAt": "2025-04-23T10:14:55.838Z"
+  },
+  {
+    "id": "174540329583854",
+    "name": "Chocolate Drops",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 5000,
+    "packagePrice": 15,
+    "nutritionalInfo": {
+      "calories": 545,
+      "protein": 5.8,
+      "carbs": 59.4,
+      "fat": 31
+    },
+    "createdAt": "2025-04-23T10:14:55.838Z",
+    "updatedAt": "2025-04-23T10:14:55.838Z"
+  },
+  {
+    "id": "174540329583855",
+    "name": "Baking Soda",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.838Z",
+    "updatedAt": "2025-04-23T10:14:55.838Z"
+  },
+  {
+    "id": "174540329583956",
+    "name": "Baking Powder",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1,
+    "nutritionalInfo": {
+      "calories": 53,
+      "protein": 0,
+      "carbs": 27.7,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.839Z",
+    "updatedAt": "2025-04-23T10:14:55.839Z"
+  },
+  {
+    "id": "174540329583957",
+    "name": "Whole Chicken",
+    "category": "dry",
+    "price": 0.0012,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.22,
+    "nutritionalInfo": {
+      "calories": 239,
+      "protein": 27,
+      "carbs": 0,
+      "fat": 14
+    },
+    "createdAt": "2025-04-23T10:14:55.839Z",
+    "updatedAt": "2025-04-23T10:14:55.839Z"
+  },
+  {
+    "id": "174540329583958",
+    "name": "Breast Chicken",
+    "category": "dry",
+    "price": 0.0031,
+    "unit": "gram",
+    "packageSize": 900,
+    "packagePrice": 2.765,
+    "nutritionalInfo": {
+      "calories": 165,
+      "protein": 31,
+      "carbs": 0,
+      "fat": 3.6
+    },
+    "createdAt": "2025-04-23T10:14:55.839Z",
+    "updatedAt": "2025-04-23T10:14:55.839Z"
+  },
+  {
+    "id": "174540329583959",
+    "name": "Cumin Powder",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 5,
+    "nutritionalInfo": {
+      "calories": 375,
+      "protein": 17.8,
+      "carbs": 44.2,
+      "fat": 22.3
+    },
+    "createdAt": "2025-04-23T10:14:55.839Z",
+    "updatedAt": "2025-04-23T10:14:55.839Z"
+  },
+  {
+    "id": "174540329584060",
+    "name": "Termaric Powder",
+    "category": "dry",
+    "price": 0.0032,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3.2,
+    "nutritionalInfo": {
+      "calories": 312,
+      "protein": 9.7,
+      "carbs": 67.1,
+      "fat": 3.3
+    },
+    "createdAt": "2025-04-23T10:14:55.840Z",
+    "updatedAt": "2025-04-23T10:14:55.840Z"
+  },
+  {
+    "id": "174540329584061",
+    "name": "Bastilla Sheet",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 1,
+    "nutritionalInfo": {
+      "calories": 284,
+      "protein": 8.1,
+      "carbs": 58.4,
+      "fat": 1.3
+    },
+    "createdAt": "2025-04-23T10:14:55.840Z",
+    "updatedAt": "2025-04-23T10:14:55.840Z"
+  },
+  {
+    "id": "174540329584062",
+    "name": "Pista",
+    "category": "dry",
+    "price": 0.0075,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 7.5,
+    "nutritionalInfo": {
+      "calories": 560,
+      "protein": 20.2,
+      "carbs": 28.3,
+      "fat": 45.4
+    },
+    "createdAt": "2025-04-23T10:14:55.840Z",
+    "updatedAt": "2025-04-23T10:14:55.840Z"
+  },
+  {
+    "id": "174540329584063",
+    "name": "Hazelnuts",
+    "category": "dry",
+    "price": 0.004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 4,
+    "nutritionalInfo": {
+      "calories": 628,
+      "protein": 15,
+      "carbs": 17,
+      "fat": 61
+    },
+    "createdAt": "2025-04-23T10:14:55.840Z",
+    "updatedAt": "2025-04-23T10:14:55.840Z"
+  },
+  {
+    "id": "174540329584064",
+    "name": "Hazelnut Filling Cream",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "gram",
+    "packageSize": 6000,
+    "packagePrice": 30,
+    "nutritionalInfo": {
+      "calories": 539,
+      "protein": 6.3,
+      "carbs": 57.4,
+      "fat": 32.8
+    },
+    "createdAt": "2025-04-23T10:14:55.840Z",
+    "updatedAt": "2025-04-23T10:14:55.840Z"
+  },
+  {
+    "id": "174540329584165",
+    "name": "Milk Powder",
+    "category": "wet",
+    "price": 0.0038,
+    "unit": "gram",
+    "packageSize": 400,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 496,
+      "protein": 26.3,
+      "carbs": 38.4,
+      "fat": 26.7
+    },
+    "createdAt": "2025-04-23T10:14:55.841Z",
+    "updatedAt": "2025-04-23T10:14:55.841Z"
+  },
+  {
+    "id": "174540329584166",
+    "name": "Apple Vineger",
+    "category": "dry",
+    "price": 0.0007,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.7,
+    "nutritionalInfo": {
+      "calories": 21,
+      "protein": 0,
+      "carbs": 0.9,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.841Z",
+    "updatedAt": "2025-04-23T10:14:55.841Z"
+  },
+  {
+    "id": "174540329584167",
+    "name": "Mustard",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3,
+    "nutritionalInfo": {
+      "calories": 66,
+      "protein": 4.4,
+      "carbs": 6.4,
+      "fat": 3.9
+    },
+    "createdAt": "2025-04-23T10:14:55.841Z",
+    "updatedAt": "2025-04-23T10:14:55.841Z"
+  },
+  {
+    "id": "174540329584168",
+    "name": "French Fires",
+    "category": "dry",
+    "price": 0.0006,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.64,
+    "nutritionalInfo": {
+      "calories": 312,
+      "protein": 3.4,
+      "carbs": 41,
+      "fat": 15
+    },
+    "createdAt": "2025-04-23T10:14:55.841Z",
+    "updatedAt": "2025-04-23T10:14:55.841Z"
+  },
+  {
+    "id": "174540329584269",
+    "name": "European Flour",
+    "category": "dry",
+    "price": 0.0002,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 4.5,
+    "nutritionalInfo": {
+      "calories": 364,
+      "protein": 10,
+      "carbs": 76,
+      "fat": 1
+    },
+    "createdAt": "2025-04-23T10:14:55.842Z",
+    "updatedAt": "2025-04-23T10:14:55.842Z"
+  },
+  {
+    "id": "174540329584270",
+    "name": "Black rasin",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3,
+    "nutritionalInfo": {
+      "calories": 299,
+      "protein": 3,
+      "carbs": 79,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.842Z",
+    "updatedAt": "2025-04-23T10:14:55.842Z"
+  },
+  {
+    "id": "174540329584271",
+    "name": "Cornflower powder",
+    "category": "dry",
+    "price": 0.0008,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 355,
+      "protein": 0,
+      "carbs": 88,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.842Z",
+    "updatedAt": "2025-04-23T10:14:55.842Z"
+  },
+  {
+    "id": "174540329584272",
+    "name": "Coffee Powder",
+    "category": "dry",
+    "price": 0.0015,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 2,
+      "protein": 0.1,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.842Z",
+    "updatedAt": "2025-04-23T10:14:55.842Z"
+  },
+  {
+    "id": "174540329584373",
+    "name": "Red Food colour",
+    "category": "dry",
+    "price": 0.0057,
+    "unit": "gram",
+    "packageSize": 28,
+    "packagePrice": 0.16,
+    "nutritionalInfo": {
+      "calories": 15,
+      "protein": 0,
+      "carbs": 0.4,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.843Z",
+    "updatedAt": "2025-04-23T10:14:55.843Z"
+  },
+  {
+    "id": "174540329584374",
+    "name": "Milk Chocolate",
+    "category": "wet",
+    "price": 0.004,
+    "unit": "gram",
+    "packageSize": 5000,
+    "packagePrice": 20,
+    "nutritionalInfo": {
+      "calories": 550,
+      "protein": 6,
+      "carbs": 59,
+      "fat": 32
+    },
+    "createdAt": "2025-04-23T10:14:55.843Z",
+    "updatedAt": "2025-04-23T10:14:55.843Z"
+  },
+  {
+    "id": "174540329584375",
+    "name": "Coconut Flakes Sweened",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "gram",
+    "packageSize": 400,
+    "packagePrice": 2,
+    "nutritionalInfo": {
+      "calories": 467,
+      "protein": 0,
+      "carbs": 46.69,
+      "fat": 30.02
+    },
+    "createdAt": "2025-04-23T10:14:55.843Z",
+    "updatedAt": "2025-04-23T10:14:55.843Z"
+  },
+  {
+    "id": "174540329584376",
+    "name": "Thick Cream",
+    "category": "dry",
+    "price": 0.0014,
+    "unit": "gram",
+    "packageSize": 125,
+    "packagePrice": 0.17,
+    "nutritionalInfo": {
+      "calories": 345,
+      "protein": 2.1,
+      "carbs": 3.5,
+      "fat": 37
+    },
+    "createdAt": "2025-04-23T10:14:55.843Z",
+    "updatedAt": "2025-04-23T10:14:55.843Z"
+  },
+  {
+    "id": "174540329584477",
+    "name": "Laban",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.47,
+    "nutritionalInfo": {
+      "calories": 61,
+      "protein": 3.3,
+      "carbs": 4.8,
+      "fat": 3.2
+    },
+    "createdAt": "2025-04-23T10:14:55.844Z",
+    "updatedAt": "2025-04-23T10:14:55.844Z"
+  },
+  {
+    "id": "174540329584478",
+    "name": "Yougart",
+    "category": "dry",
+    "price": 0.0006,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.57,
+    "nutritionalInfo": {
+      "calories": 67,
+      "protein": 3.5,
+      "carbs": 6.5,
+      "fat": 3.1
+    },
+    "createdAt": "2025-04-23T10:14:55.844Z",
+    "updatedAt": "2025-04-23T10:14:55.844Z"
+  },
+  {
+    "id": "174540329584479",
+    "name": "Whipping Cream",
+    "category": "dry",
+    "price": 0.0018,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.8,
+    "nutritionalInfo": {
+      "calories": 258,
+      "protein": 2.3,
+      "carbs": 3.3,
+      "fat": 26
+    },
+    "createdAt": "2025-04-23T10:14:55.844Z",
+    "updatedAt": "2025-04-23T10:14:55.844Z"
+  },
+  {
+    "id": "174540329584480",
+    "name": "Diggestive Biscuit",
+    "category": "dry",
+    "price": 0.0019,
+    "unit": "gram",
+    "packageSize": 400,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 478,
+      "protein": 6.3,
+      "carbs": 62.7,
+      "fat": 21.8
+    },
+    "createdAt": "2025-04-23T10:14:55.844Z",
+    "updatedAt": "2025-04-23T10:14:55.844Z"
+  },
+  {
+    "id": "174540329584581",
+    "name": "Apple",
+    "category": "dry",
+    "price": 0.0006,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.6,
+    "nutritionalInfo": {
+      "calories": 52,
+      "protein": 0.3,
+      "carbs": 13.8,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.845Z",
+    "updatedAt": "2025-04-23T10:14:55.845Z"
+  },
+  {
+    "id": "174540329584582",
+    "name": "Blueberry",
+    "category": "dry",
+    "price": 0.0043,
+    "unit": "gram",
+    "packageSize": 350,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 57,
+      "protein": 0.7,
+      "carbs": 14.5,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.845Z",
+    "updatedAt": "2025-04-23T10:14:55.845Z"
+  },
+  {
+    "id": "174540329584583",
+    "name": "Dark Chocolate",
+    "category": "dry",
+    "price": 0.003,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 560,
+      "protein": 6,
+      "carbs": 58,
+      "fat": 33
+    },
+    "createdAt": "2025-04-23T10:14:55.845Z",
+    "updatedAt": "2025-04-23T10:14:55.845Z"
+  },
+  {
+    "id": "174540329584584",
+    "name": "Dates Mollases",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2,
+    "nutritionalInfo": {
+      "calories": 312,
+      "protein": 0,
+      "carbs": 78,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.845Z",
+    "updatedAt": "2025-04-23T10:14:55.845Z"
+  },
+  {
+    "id": "174540329584685",
+    "name": "Honey",
+    "category": "dry",
+    "price": 0.0045,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 4.5,
+    "nutritionalInfo": {
+      "calories": 304,
+      "protein": 0.3,
+      "carbs": 82.4,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.846Z",
+    "updatedAt": "2025-04-23T10:14:55.846Z"
+  },
+  {
+    "id": "174540329584686",
+    "name": "Stawberry Puitry",
+    "category": "dry",
+    "price": 0.0035,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3.5,
+    "nutritionalInfo": {
+      "calories": 60,
+      "protein": 0.5,
+      "carbs": 15,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.846Z",
+    "updatedAt": "2025-04-23T10:14:55.846Z"
+  },
+  {
+    "id": "174540329584687",
+    "name": "Snow Sugar",
+    "category": "dry",
+    "price": 0.001,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 25,
+    "nutritionalInfo": {
+      "calories": 400,
+      "protein": 0,
+      "carbs": 100,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.846Z",
+    "updatedAt": "2025-04-23T10:14:55.846Z"
+  },
+  {
+    "id": "174540329584688",
+    "name": "Yellow Mustard",
+    "category": "dry",
+    "price": 0.0025,
+    "unit": "gram",
+    "packageSize": 396,
+    "packagePrice": 0.99,
+    "nutritionalInfo": {
+      "calories": 66,
+      "protein": 3,
+      "carbs": 5,
+      "fat": 4
+    },
+    "createdAt": "2025-04-23T10:14:55.846Z",
+    "updatedAt": "2025-04-23T10:14:55.846Z"
+  },
+  {
+    "id": "174540329584789",
+    "name": "Mix Cheese",
+    "category": "dry",
+    "price": 0.0074,
+    "unit": "gram",
+    "packageSize": 400,
+    "packagePrice": 2.95,
+    "nutritionalInfo": {
+      "calories": 366,
+      "protein": 24,
+      "carbs": 4,
+      "fat": 28.5
+    },
+    "createdAt": "2025-04-23T10:14:55.847Z",
+    "updatedAt": "2025-04-23T10:14:55.847Z"
+  },
+  {
+    "id": "174540329584790",
+    "name": "Chedder Cheese",
+    "category": "dry",
+    "price": 0.0024,
+    "unit": "gram",
+    "packageSize": 800,
+    "packagePrice": 1.92,
+    "nutritionalInfo": {
+      "calories": 240,
+      "protein": 15.8,
+      "carbs": 6,
+      "fat": 17
+    },
+    "createdAt": "2025-04-23T10:14:55.847Z",
+    "updatedAt": "2025-04-23T10:14:55.847Z"
+  },
+  {
+    "id": "174540329584791",
+    "name": "Dijon Mustard",
+    "category": "dry",
+    "price": 0.0039,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 1.95,
+    "nutritionalInfo": {
+      "calories": 55,
+      "protein": 3,
+      "carbs": 3,
+      "fat": 3
+    },
+    "createdAt": "2025-04-23T10:14:55.847Z",
+    "updatedAt": "2025-04-23T10:14:55.847Z"
+  },
+  {
+    "id": "174540329584792",
+    "name": "Turkey Bacan",
+    "category": "dry",
+    "price": 0.0033,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 3.25,
+    "nutritionalInfo": {
+      "calories": 140,
+      "protein": 20,
+      "carbs": 1,
+      "fat": 7
+    },
+    "createdAt": "2025-04-23T10:14:55.847Z",
+    "updatedAt": "2025-04-23T10:14:55.847Z"
+  },
+  {
+    "id": "174540329584893",
+    "name": "Himalayan Salt",
+    "category": "dry",
+    "price": 0.0009,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.945,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.848Z",
+    "updatedAt": "2025-04-23T10:14:55.848Z"
+  },
+  {
+    "id": "174540329584894",
+    "name": "Fried Onion",
+    "category": "dry",
+    "price": 0.0022,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2.2,
+    "nutritionalInfo": {
+      "calories": 433,
+      "protein": 5,
+      "carbs": 65,
+      "fat": 22
+    },
+    "createdAt": "2025-04-23T10:14:55.848Z",
+    "updatedAt": "2025-04-23T10:14:55.848Z"
+  },
+  {
+    "id": "174540329584895",
+    "name": "Dry Chives",
+    "category": "dry",
+    "price": 0.3,
+    "unit": "gram",
+    "packageSize": 5,
+    "packagePrice": 1.5,
+    "nutritionalInfo": {
+      "calories": 30,
+      "protein": 2,
+      "carbs": 6,
+      "fat": 0.5
+    },
+    "createdAt": "2025-04-23T10:14:55.848Z",
+    "updatedAt": "2025-04-23T10:14:55.848Z"
+  },
+  {
+    "id": "174540329584896",
+    "name": "Sunset Glaze",
+    "category": "dry",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 12000,
+    "packagePrice": 24,
+    "nutritionalInfo": {
+      "calories": 150,
+      "protein": 1,
+      "carbs": 36,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.848Z",
+    "updatedAt": "2025-04-23T10:14:55.848Z"
+  },
+  {
+    "id": "174540329584897",
+    "name": "Sunflower Oil",
+    "category": "wet",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 4600,
+    "packagePrice": 2.5,
+    "nutritionalInfo": {
+      "calories": 815,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 91
+    },
+    "createdAt": "2025-04-23T10:14:55.848Z",
+    "updatedAt": "2025-04-23T10:14:55.848Z"
+  },
+  {
+    "id": "174540329584998",
+    "name": "Dry Thyme",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "gram",
+    "packageSize": 100,
+    "packagePrice": 0.5,
+    "nutritionalInfo": {
+      "calories": 276,
+      "protein": 9.1,
+      "carbs": 64,
+      "fat": 7
+    },
+    "createdAt": "2025-04-23T10:14:55.849Z",
+    "updatedAt": "2025-04-23T10:14:55.849Z"
+  },
+  {
+    "id": "174540329584999",
+    "name": "Melted Butter",
+    "category": "wet",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 25000,
+    "packagePrice": 50,
+    "nutritionalInfo": {
+      "calories": 747,
+      "protein": 0.3,
+      "carbs": 0.8,
+      "fat": 82.5
+    },
+    "createdAt": "2025-04-23T10:14:55.849Z",
+    "updatedAt": "2025-04-23T10:14:55.849Z"
+  },
+  {
+    "id": "1745403295849100",
+    "name": "0000 Flour",
+    "category": "dry",
+    "price": 0.0001,
+    "unit": "gram",
+    "packageSize": 50000,
+    "packagePrice": 4.1,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.849Z",
+    "updatedAt": "2025-04-23T10:14:55.849Z"
+  },
+  {
+    "id": "1745403295849101",
+    "name": "Patent Flour",
+    "category": "dry",
+    "price": 0.00014,
+    "unit": "gram",
+    "packageSize": 50000,
+    "packagePrice": 7,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.849Z",
+    "updatedAt": "2025-04-23T10:14:55.849Z"
+  },
+  {
+    "id": "1745403295850102",
+    "name": "Butter Sheet (Own)",
+    "category": "wet",
+    "price": 0.002,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 2,
+    "nutritionalInfo": {
+      "calories": 747,
+      "protein": 0.3,
+      "carbs": 0.8,
+      "fat": 82.5
+    },
+    "createdAt": "2025-04-23T10:14:55.850Z",
+    "updatedAt": "2025-04-23T10:14:55.850Z"
+  },
+  {
+    "id": "1745403295850103",
+    "name": "Baking Paper",
+    "category": "dry",
+    "price": 0.013,
+    "unit": "Pcs",
+    "packageSize": 500,
+    "packagePrice": 6.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.850Z",
+    "updatedAt": "2025-04-23T10:14:55.850Z"
+  },
+  {
+    "id": "1745403295850104",
+    "name": "Packing Cover",
+    "category": "dry",
+    "price": 0.0007,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.850Z",
+    "updatedAt": "2025-04-23T10:14:55.850Z"
+  },
+  {
+    "id": "1745403295850105",
+    "name": "Oven Cleaner",
+    "category": "dry",
+    "price": 6,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 6,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.850Z",
+    "updatedAt": "2025-04-23T10:14:55.850Z"
+  },
+  {
+    "id": "1745403295851106",
+    "name": "Trash Bag",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.4,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.851Z",
+    "updatedAt": "2025-04-23T10:14:55.851Z"
+  },
+  {
+    "id": "1745403295851107",
+    "name": "Mob Cap",
+    "category": "dry",
+    "price": 6.5,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 6.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.851Z",
+    "updatedAt": "2025-04-23T10:14:55.851Z"
+  },
+  {
+    "id": "1745403295851108",
+    "name": "Gloves",
+    "category": "dry",
+    "price": 0.0065,
+    "unit": "Pcs",
+    "packageSize": 1000,
+    "packagePrice": 6.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.851Z",
+    "updatedAt": "2025-04-23T10:14:55.851Z"
+  },
+  {
+    "id": "1745403295851109",
+    "name": "Non Woven Cloth",
+    "category": "dry",
+    "price": 0.0233,
+    "unit": "Pcs",
+    "packageSize": 600,
+    "packagePrice": 14,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.851Z",
+    "updatedAt": "2025-04-23T10:14:55.851Z"
+  },
+  {
+    "id": "1745403295852110",
+    "name": "Sandwich Box (Down)",
+    "category": "dry",
+    "price": 0.025,
+    "unit": "Pcs",
+    "packageSize": 1000,
+    "packagePrice": 25,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.852Z",
+    "updatedAt": "2025-04-23T10:14:55.852Z"
+  },
+  {
+    "id": "1745403295852111",
+    "name": "Sandwich Box (Top)",
+    "category": "dry",
+    "price": 0.011,
+    "unit": "Pcs",
+    "packageSize": 1000,
+    "packagePrice": 11,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.852Z",
+    "updatedAt": "2025-04-23T10:14:55.852Z"
+  },
+  {
+    "id": "1745403295853112",
+    "name": "Cling Flim",
+    "category": "dry",
+    "price": 5.25,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 5.25,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.853Z",
+    "updatedAt": "2025-04-23T10:14:55.853Z"
+  },
+  {
+    "id": "1745403295853113",
+    "name": "Chorine Bleach",
+    "category": "dry",
+    "price": 3.5,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 3.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.853Z",
+    "updatedAt": "2025-04-23T10:14:55.853Z"
+  },
+  {
+    "id": "1745403295853114",
+    "name": "Washing Rubber",
+    "category": "dry",
+    "price": 0.75,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.853Z",
+    "updatedAt": "2025-04-23T10:14:55.853Z"
+  },
+  {
+    "id": "1745403295853115",
+    "name": "Mop Holder",
+    "category": "dry",
+    "price": 1.75,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 1.75,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.853Z",
+    "updatedAt": "2025-04-23T10:14:55.853Z"
+  },
+  {
+    "id": "1745403295854116",
+    "name": "Mop Cotton",
+    "category": "dry",
+    "price": 0.75,
+    "unit": "Pcs",
+    "packageSize": 1,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.854Z",
+    "updatedAt": "2025-04-23T10:14:55.854Z"
+  },
+  {
+    "id": "1745403295854117",
+    "name": "Big Take away Bag",
+    "category": "dry",
+    "price": 0.072,
+    "unit": "Pcs",
+    "packageSize": 250,
+    "packagePrice": 18,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.854Z",
+    "updatedAt": "2025-04-23T10:14:55.854Z"
+  },
+  {
+    "id": "1745403295854118",
+    "name": "Small Take away Bag",
+    "category": "dry",
+    "price": 0.06,
+    "unit": "Pcs",
+    "packageSize": 250,
+    "packagePrice": 15,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.854Z",
+    "updatedAt": "2025-04-23T10:14:55.854Z"
+  },
+  {
+    "id": "1745403295855119",
+    "name": "Take away bag without Handle",
+    "category": "dry",
+    "price": 0.02,
+    "unit": "Pcs",
+    "packageSize": 500,
+    "packagePrice": 10,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.855Z",
+    "updatedAt": "2025-04-23T10:14:55.855Z"
+  },
+  {
+    "id": "1745403295855120",
+    "name": "Side item Container",
+    "category": "dry",
+    "price": 0.3,
+    "unit": "Pcs",
+    "packageSize": 12,
+    "packagePrice": 3.6,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.855Z",
+    "updatedAt": "2025-04-23T10:14:55.855Z"
+  },
+  {
+    "id": "1745403295855121",
+    "name": "Butter Container",
+    "category": "wet",
+    "price": 0.1806,
+    "unit": "Pcs",
+    "packageSize": 72,
+    "packagePrice": 13,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.855Z",
+    "updatedAt": "2025-04-23T10:14:55.855Z"
+  },
+  {
+    "id": "1745403295855122",
+    "name": "Packing Tag",
+    "category": "dry",
+    "price": 0.005,
+    "unit": "Pcs",
+    "packageSize": 100,
+    "packagePrice": 0.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.855Z",
+    "updatedAt": "2025-04-23T10:14:55.855Z"
+  },
+  {
+    "id": "1745403295856123",
+    "name": "Small Box",
+    "category": "dry",
+    "price": 0.055,
+    "unit": "Pcs",
+    "packageSize": 50,
+    "packagePrice": 2.75,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.856Z",
+    "updatedAt": "2025-04-23T10:14:55.856Z"
+  },
+  {
+    "id": "1745403295856124",
+    "name": "Big Box",
+    "category": "dry",
+    "price": 0.11,
+    "unit": "Pcs",
+    "packageSize": 50,
+    "packagePrice": 5.5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.856Z",
+    "updatedAt": "2025-04-23T10:14:55.856Z"
+  },
+  {
+    "id": "1745403295856125",
+    "name": "Pizza Box",
+    "category": "dry",
+    "price": 0.1,
+    "unit": "Pcs",
+    "packageSize": 50,
+    "packagePrice": 5,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.856Z",
+    "updatedAt": "2025-04-23T10:14:55.856Z"
+  },
+  {
+    "id": "1745403295856126",
+    "name": "Stcikers",
+    "category": "dry",
+    "price": 0.01,
+    "unit": "Pcs",
+    "packageSize": 1000,
+    "packagePrice": 10,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.856Z",
+    "updatedAt": "2025-04-23T10:14:55.856Z"
+  },
+  {
+    "id": "1745403295856127",
+    "name": "Potato",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.35,
+    "nutritionalInfo": {
+      "calories": 77,
+      "protein": 2,
+      "carbs": 17,
+      "fat": 0.1
+    },
+    "createdAt": "2025-04-23T10:14:55.856Z",
+    "updatedAt": "2025-04-23T10:14:55.856Z"
+  },
+  {
+    "id": "1745403295857128",
+    "name": "Tomato",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.35,
+    "nutritionalInfo": {
+      "calories": 18,
+      "protein": 0.9,
+      "carbs": 3.9,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.857Z",
+    "updatedAt": "2025-04-23T10:14:55.857Z"
+  },
+  {
+    "id": "1745403295857129",
+    "name": "Eggplant",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.5,
+    "nutritionalInfo": {
+      "calories": 25,
+      "protein": 1,
+      "carbs": 6,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.857Z",
+    "updatedAt": "2025-04-23T10:14:55.857Z"
+  },
+  {
+    "id": "1745403295857130",
+    "name": "Onion Red",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.375,
+    "nutritionalInfo": {
+      "calories": 40,
+      "protein": 1.1,
+      "carbs": 9.3,
+      "fat": 0.1
+    },
+    "createdAt": "2025-04-23T10:14:55.857Z",
+    "updatedAt": "2025-04-23T10:14:55.857Z"
+  },
+  {
+    "id": "1745403295857131",
+    "name": "Onion White",
+    "category": "dry",
+    "price": 0.0007,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 40,
+      "protein": 1.1,
+      "carbs": 9.3,
+      "fat": 0.1
+    },
+    "createdAt": "2025-04-23T10:14:55.857Z",
+    "updatedAt": "2025-04-23T10:14:55.857Z"
+  },
+  {
+    "id": "1745403295858132",
+    "name": "Ginger",
+    "category": "dry",
+    "price": 0.0007,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.675,
+    "nutritionalInfo": {
+      "calories": 80,
+      "protein": 1.8,
+      "carbs": 17.8,
+      "fat": 0.8
+    },
+    "createdAt": "2025-04-23T10:14:55.858Z",
+    "updatedAt": "2025-04-23T10:14:55.858Z"
+  },
+  {
+    "id": "1745403295858133",
+    "name": "Capsicum",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.45,
+    "nutritionalInfo": {
+      "calories": 31,
+      "protein": 1,
+      "carbs": 6,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.858Z",
+    "updatedAt": "2025-04-23T10:14:55.858Z"
+  },
+  {
+    "id": "1745403295858134",
+    "name": "Lemon",
+    "category": "dry",
+    "price": 0.0006,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.55,
+    "nutritionalInfo": {
+      "calories": 29,
+      "protein": 1.1,
+      "carbs": 9.3,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.858Z",
+    "updatedAt": "2025-04-23T10:14:55.858Z"
+  },
+  {
+    "id": "1745403295858135",
+    "name": "Lettuce",
+    "category": "dry",
+    "price": 0.0006,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.55,
+    "nutritionalInfo": {
+      "calories": 15,
+      "protein": 1.4,
+      "carbs": 2.9,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.858Z",
+    "updatedAt": "2025-04-23T10:14:55.858Z"
+  },
+  {
+    "id": "1745403295859136",
+    "name": "Cherry Tomato",
+    "category": "dry",
+    "price": 0.0014,
+    "unit": "gram",
+    "packageSize": 500,
+    "packagePrice": 0.7,
+    "nutritionalInfo": {
+      "calories": 18,
+      "protein": 0.9,
+      "carbs": 3.9,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.859Z",
+    "updatedAt": "2025-04-23T10:14:55.859Z"
+  },
+  {
+    "id": "1745403295859137",
+    "name": "Spring Onion",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 100,
+    "packagePrice": 0.05,
+    "nutritionalInfo": {
+      "calories": 32,
+      "protein": 1.8,
+      "carbs": 7.3,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.859Z",
+    "updatedAt": "2025-04-23T10:14:55.859Z"
+  },
+  {
+    "id": "1745403295859138",
+    "name": "Cucumber",
+    "category": "dry",
+    "price": 0.0003,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.25,
+    "nutritionalInfo": {
+      "calories": 15,
+      "protein": 0.7,
+      "carbs": 3.6,
+      "fat": 0.1
+    },
+    "createdAt": "2025-04-23T10:14:55.859Z",
+    "updatedAt": "2025-04-23T10:14:55.859Z"
+  },
+  {
+    "id": "1745403295859139",
+    "name": "Carrots",
+    "category": "dry",
+    "price": 0.0004,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.4,
+    "nutritionalInfo": {
+      "calories": 41,
+      "protein": 0.9,
+      "carbs": 9.6,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.859Z",
+    "updatedAt": "2025-04-23T10:14:55.859Z"
+  },
+  {
+    "id": "1745403295860140",
+    "name": "Rocca",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 100,
+    "packagePrice": 0.05,
+    "nutritionalInfo": {
+      "calories": 25,
+      "protein": 2.6,
+      "carbs": 3.7,
+      "fat": 0.7
+    },
+    "createdAt": "2025-04-23T10:14:55.860Z",
+    "updatedAt": "2025-04-23T10:14:55.860Z"
+  },
+  {
+    "id": "1745403295860141",
+    "name": "Thyme",
+    "category": "dry",
+    "price": 0.0081,
+    "unit": "gram",
+    "packageSize": 80,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 101,
+      "protein": 5.6,
+      "carbs": 24.5,
+      "fat": 1.7
+    },
+    "createdAt": "2025-04-23T10:14:55.860Z",
+    "updatedAt": "2025-04-23T10:14:55.860Z"
+  },
+  {
+    "id": "1745403295861142",
+    "name": "Oregano",
+    "category": "dry",
+    "price": 0.0081,
+    "unit": "gram",
+    "packageSize": 80,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 265,
+      "protein": 9,
+      "carbs": 69,
+      "fat": 4.3
+    },
+    "createdAt": "2025-04-23T10:14:55.861Z",
+    "updatedAt": "2025-04-23T10:14:55.861Z"
+  },
+  {
+    "id": "1745403295861143",
+    "name": "Garlic",
+    "category": "dry",
+    "price": 0.0008,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.75,
+    "nutritionalInfo": {
+      "calories": 149,
+      "protein": 6.4,
+      "carbs": 33.1,
+      "fat": 0.5
+    },
+    "createdAt": "2025-04-23T10:14:55.861Z",
+    "updatedAt": "2025-04-23T10:14:55.861Z"
+  },
+  {
+    "id": "1745403295861144",
+    "name": "Red Chilli",
+    "category": "dry",
+    "price": 0.0013,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 1.3,
+    "nutritionalInfo": {
+      "calories": 40,
+      "protein": 1.9,
+      "carbs": 8.8,
+      "fat": 0.2
+    },
+    "createdAt": "2025-04-23T10:14:55.861Z",
+    "updatedAt": "2025-04-23T10:14:55.861Z"
+  },
+  {
+    "id": "1745403295861145",
+    "name": "Basil",
+    "category": "dry",
+    "price": 0.0081,
+    "unit": "gram",
+    "packageSize": 80,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 23,
+      "protein": 3.2,
+      "carbs": 2.7,
+      "fat": 0.6
+    },
+    "createdAt": "2025-04-23T10:14:55.861Z",
+    "updatedAt": "2025-04-23T10:14:55.861Z"
+  },
+  {
+    "id": "1745403295862146",
+    "name": "Koosa",
+    "category": "dry",
+    "price": 0.0005,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0.5,
+    "nutritionalInfo": {
+      "calories": 17,
+      "protein": 1.2,
+      "carbs": 3.1,
+      "fat": 0.3
+    },
+    "createdAt": "2025-04-23T10:14:55.862Z",
+    "updatedAt": "2025-04-23T10:14:55.862Z"
+  },
+  {
+    "id": "1745403295862147",
+    "name": "Parsly",
+    "category": "dry",
+    "price": 0.0081,
+    "unit": "gram",
+    "packageSize": 80,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 36,
+      "protein": 3,
+      "carbs": 6.3,
+      "fat": 0.8
+    },
+    "createdAt": "2025-04-23T10:14:55.862Z",
+    "updatedAt": "2025-04-23T10:14:55.862Z"
+  },
+  {
+    "id": "1745403295862148",
+    "name": "Chives",
+    "category": "dry",
+    "price": 0.0081,
+    "unit": "gram",
+    "packageSize": 80,
+    "packagePrice": 0.65,
+    "nutritionalInfo": {
+      "calories": 30,
+      "protein": 3.3,
+      "carbs": 4.4,
+      "fat": 0.7
+    },
+    "createdAt": "2025-04-23T10:14:55.862Z",
+    "updatedAt": "2025-04-23T10:14:55.862Z"
+  },
+  {
+    "id": "1745403295862149",
+    "name": "Water",
+    "category": "wet",
+    "price": 0,
+    "unit": "gram",
+    "packageSize": 1000,
+    "packagePrice": 0,
+    "nutritionalInfo": {
+      "calories": 0,
+      "protein": 0,
+      "carbs": 0,
+      "fat": 0
+    },
+    "createdAt": "2025-04-23T10:14:55.862Z",
+    "updatedAt": "2025-04-23T10:14:55.862Z"
+  }
+]
